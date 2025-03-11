@@ -7,6 +7,7 @@ import android.util.Base64.DEFAULT
 import androidx.room.TypeConverter
 import com.example.data.model.ImageEntity
 import com.example.domain.model.ImageModel
+import java.io.ByteArrayOutputStream
 import java.nio.ByteBuffer
 
 // To Domain
@@ -37,11 +38,19 @@ fun ImageModel.toEntity(): ImageEntity {
 fun List<ImageModel>.toEntity(): List<ImageEntity> =
     this.map { it.toEntity() }
 
+fun scaleBitmap(bitmap: Bitmap, maxWidth: Int, maxHeight: Int): Bitmap {
+    val width = bitmap.width
+    val height = bitmap.height
+    val scale = minOf(maxWidth.toFloat() / width, maxHeight.toFloat() / height)
+    return Bitmap.createScaledBitmap(bitmap, (width * scale).toInt(), (height * scale).toInt(), true)
+}
+
 @TypeConverter
 fun bitmapToBase64(bitmap: Bitmap) : String{
-    val byteBuffer = ByteBuffer.allocate(bitmap.height * bitmap.rowBytes)
-    bitmap.copyPixelsToBuffer(byteBuffer)
-    val byteArray = byteBuffer.array()
+    val outputStream = ByteArrayOutputStream()
+    // Compress the bitmap as PNG or JPEG
+    bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream)
+    val byteArray = outputStream.toByteArray()
     return Base64.encodeToString(byteArray, DEFAULT)
 }
 

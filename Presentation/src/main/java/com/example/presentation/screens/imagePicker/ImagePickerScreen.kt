@@ -43,6 +43,7 @@ import com.example.presentation.composables.NeonButtonSize
 import com.example.presentation.composables.RetroNeonButton
 import com.example.presentation.composables.RowSwitch
 import com.example.presentation.theme.retro
+import kotlin.reflect.KFunction0
 
 private const val DEFAULT_PIXEL_SIZE = 1f
 private const val SLIDER_MAX = 50f
@@ -58,6 +59,7 @@ fun ImagePickerScreen(
         onSelectImage = viewModel::onSelectImage,
         onPixelSizeChanged = viewModel::onPixelSizeChanged,
         onCrtToggled = viewModel::onCrtToggled,
+        onSendImageClicked = viewModel::onSendImageClicked,
     )
 }
 
@@ -68,6 +70,7 @@ fun PixelatedImagePicker(
     onSelectImage: (Bitmap) -> Unit,
     onPixelSizeChanged: (Float) -> Unit,
     onCrtToggled: (Boolean) -> Unit,
+    onSendImageClicked: () -> Unit,
 ) {
     val context = LocalContext.current
 
@@ -166,7 +169,7 @@ fun PixelatedImagePicker(
             borderColor = borderColor,
             size = NeonButtonSize.Medium,
             text = stringResource(R.string.send_button_label),
-            onClick = {}
+            onClick = { onSendImageClicked() }
         )
     }
 }

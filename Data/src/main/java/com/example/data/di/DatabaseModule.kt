@@ -3,6 +3,7 @@ package com.example.data.di
 import android.content.Context
 import androidx.room.Room
 import com.example.data.AppDatabase
+import com.example.data.dao.ImageDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -22,4 +23,7 @@ internal object DatabaseModule {
         AppDatabase::class.java,
         "room-database",
     ).build()
+
+    @Provides
+    fun providesUserDao(database: AppDatabase): ImageDao = database.imageDao()
 }

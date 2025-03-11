@@ -3,8 +3,8 @@ package com.example.domain.model
 import android.graphics.Bitmap
 
 data class ImageModel(
-    val id: Int,
-    val userId: Int,
+    val id: Int? = null,
+    val userId: Int? = null,
     val image: Bitmap,
-    val score: Int
+    val score: Int? = 0
 )
