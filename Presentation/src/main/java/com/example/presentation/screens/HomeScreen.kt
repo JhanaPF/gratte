@@ -70,14 +70,14 @@ fun HomeContent(
             )
 
             LazyColumn {
-                items(30) {
-                    ScoreRow(
-                        rank = 1,
-                        score = 1000,
-                        name = "John Doe",
-                        color = Color.Red
-                    )
-                }
+//                items(30) {
+//                    ScoreRow(
+//                        rank = 1,
+//                        score = 1000,
+//                        name = "John Doe",
+//                        color = Color.Red
+//                    )
+//                }
             }
         }
         Button(

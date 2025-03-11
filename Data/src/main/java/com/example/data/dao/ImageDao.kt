@@ -23,7 +23,7 @@ interface ImageDao {
     fun observeByUserId(userId: Int): Flow<List<ImageEntity>>
 
     @Insert
-    suspend fun insertAll(vararg image: ImageEntity)
+    suspend fun insertAll(image: List<ImageEntity>)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(image: ImageEntity)
