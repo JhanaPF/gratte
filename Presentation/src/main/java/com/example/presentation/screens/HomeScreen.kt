@@ -17,10 +17,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.presentation.theme.PixeliseItTheme
-import com.example.presentation.theme.retro
 import com.example.presentation.R
 import com.example.presentation.composables.ScoreRow
+import com.example.presentation.theme.PixeliseItTheme
+import com.example.presentation.theme.retro
 
 @Composable
 fun HomeScreen(

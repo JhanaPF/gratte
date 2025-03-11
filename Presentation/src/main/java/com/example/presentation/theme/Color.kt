@@ -8,6 +8,7 @@ val Black = Color.Black
 val White = Color.White
 val Gray = Color.Gray
 val Pink80 = Color(0xFFEFB8C8)
+val NeonPink = Color(0xFFFF00FF)
 
 val Purple40 = Color(0xFF6650a4)
 val PurpleGrey40 = Color(0xFF625b71)

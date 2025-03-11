@@ -5,21 +5,20 @@ import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
-import androidx.compose.material3.Scaffold
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Slider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -27,36 +26,39 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.pixeliseit.presentation.utils.loadBitmapFromUri
+import com.example.pixeliseit.presentation.utils.randomFlashyColor
+import com.example.presentation.R
+import com.example.presentation.composables.NeonButtonSize
+import com.example.presentation.composables.RetroNeonButton
 import com.example.presentation.composables.RowSwitch
+import com.example.presentation.theme.retro
 
 private const val DEFAULT_PIXEL_SIZE = 1f
+private const val SLIDER_MAX = 50f
 
 @Composable
 fun ImagePickerScreen(
-    popUp: () -> Boolean,
     viewModel: ImagePickerViewModel = hiltViewModel()
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
 
-    Scaffold { innerPadding ->
-        PixelatedImagePicker(
-            state = state,
-            modifier = Modifier.padding(innerPadding),
-            onSelectImage = viewModel::onSelectImage,
-            onPixelSizeChanged = viewModel::onPixelSizeChanged,
-            onCrtToggled = viewModel::onCrtToggled,
-        )
-    }
+    PixelatedImagePicker(
+        state = state,
+        onSelectImage = viewModel::onSelectImage,
+        onPixelSizeChanged = viewModel::onPixelSizeChanged,
+        onCrtToggled = viewModel::onCrtToggled,
+    )
 }
 
 @Composable
@@ -72,6 +74,12 @@ fun PixelatedImagePicker(
     var crtEffect by remember { mutableStateOf(false) }
     var pixelSize by remember { mutableFloatStateOf(DEFAULT_PIXEL_SIZE) } // Adjust pixelation size
 
+    var borderColor by remember { mutableStateOf(Color.White) }
+
+    LaunchedEffect(Unit) {
+        borderColor = randomFlashyColor()
+    }
+
     val imagePickerLauncher =
         rememberLauncherForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
             onSelectImage(
@@ -83,26 +91,47 @@ fun PixelatedImagePicker(
     Column(
         modifier = modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+        verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
-        Button(onClick = { imagePickerLauncher.launch("image/*") }) {
-            Text("Select Image")
-        }
+        Text(
+            modifier = Modifier.padding(top = 16.dp, bottom = 8.dp),
+            text = stringResource(R.string.picker_title),
+            color = MaterialTheme.colorScheme.primary,
+            fontFamily = retro,
+            fontSize = 24.sp,
+        )
 
-        Spacer(modifier = Modifier.height(16.dp))
-
-        state.image?.let {
+        if (state.image != null) {
             Image(
-                bitmap = it.asImageBitmap(),
+                bitmap = state.image.asImageBitmap(),
                 contentScale = ContentScale.Fit,
                 contentDescription = "Pixelated Image",
                 modifier = Modifier
-                    .heightIn(max = 500.dp)
-                    .padding(horizontal = 24.dp, vertical = 8.dp)
-                    .clip(RoundedCornerShape(10.dp))
-                    .border(2.dp, Color.Gray, RoundedCornerShape(10.dp))
+                    .heightIn(max = 440.dp)
+                    .padding(vertical = 8.dp)
+                    .border(2.dp, borderColor)
+            )
+        } else {
+            Image(
+                painter = painterResource(id = R.drawable.add_image_placeholder),
+                contentScale = ContentScale.Inside,
+                contentDescription = "Pixelated Image",
+                modifier = Modifier
+                    .defaultMinSize(minHeight = 400.dp, minWidth = 300.dp)
+                    .padding(vertical = 8.dp)
+                    .border(2.dp, borderColor)
+                    .background(Color.LightGray)
+
             )
         }
+
+
+        RetroNeonButton(
+            text = stringResource(R.string.select_button_label),
+            borderColor = borderColor,
+            size = NeonButtonSize.Small,
+            onClick = { imagePickerLauncher.launch("image/*") }
+        )
 
         Slider(
             modifier = Modifier
@@ -112,20 +141,32 @@ fun PixelatedImagePicker(
                 pixelSize = it
                 onPixelSizeChanged(it)
             },
-            valueRange = DEFAULT_PIXEL_SIZE..50f,
+            valueRange = DEFAULT_PIXEL_SIZE..SLIDER_MAX,
             steps = 9,
         )
 
+        Text(
+            text = stringResource(R.string.slider_label, pixelSize.toInt()),
+            fontFamily = retro,
+            fontSize = 14.sp
+        )
+
         RowSwitch(
-            modifier = Modifier
-                .width(250.dp),
-            label = "Crt Effect",
-            checked = crtEffect
+            modifier = Modifier.width(250.dp),
+            label = stringResource(R.string.row_label),
+            fontFamily = retro,
+            checked = crtEffect,
         ) {
             crtEffect = it
             onCrtToggled(it)
         }
 
-        Text("Pixel Size: ${pixelSize.toInt()}", fontSize = 16.sp)
+        RetroNeonButton(
+            modifier = Modifier.padding(bottom = 16.dp),
+            borderColor = borderColor,
+            size = NeonButtonSize.Medium,
+            text = stringResource(R.string.send_button_label),
+            onClick = {}
+        )
     }
 }

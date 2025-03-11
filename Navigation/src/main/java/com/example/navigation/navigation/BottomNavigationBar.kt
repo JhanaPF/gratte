@@ -12,8 +12,10 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
@@ -25,9 +27,7 @@ import com.example.navigation.R
 fun BottomNavigationBar(
     navController: NavController
 ) {
-    val selectedNavigationIndex = rememberSaveable {
-        mutableIntStateOf(0)
-    }
+    var selectedItem by rememberSaveable { mutableIntStateOf(0) }
 
     val navigationItems = listOf(
         NavigationItem(
@@ -57,9 +57,9 @@ fun BottomNavigationBar(
     ) {
         navigationItems.forEachIndexed { index, item ->
             NavigationBarItem(
-                selected = selectedNavigationIndex.intValue == index,
+                selected = selectedItem == index,
                 onClick = {
-                    selectedNavigationIndex.intValue = index
+                    selectedItem = index
                     navController.navigate(item.route) {
                         popUpTo(navController.graph.findStartDestination().id) {
                             saveState = true
@@ -74,7 +74,7 @@ fun BottomNavigationBar(
                 label = {
                     Text(
                         item.title,
-                        color = if (index == selectedNavigationIndex.intValue)
+                        color = if (index == selectedItem)
                             Color.White
                         else MaterialTheme.colorScheme.onSecondary
                     )

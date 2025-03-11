@@ -1,6 +1,15 @@
 <resources>
+    <string name="title_presentation">Presentation</string>
+
+    // Home Screen
     <string name="app_name">PixeliseIt</string>
     <string name="home_title">High Scores</string>
-    <string name="title_presentation">Presentation</string>
-    <string name="title_navigation">Module Title</string>
+
+    // Image Picker
+    <string name="picker_title">Pixelate It!</string>
+    <string name="select_button_label">Select It</string>
+    <string name="slider_label">Pixel Size: %1$s</string>
+    <string name="row_label">Crt Effect</string>
+    <string name="send_button_label">Send it</string>
+
 </resources>

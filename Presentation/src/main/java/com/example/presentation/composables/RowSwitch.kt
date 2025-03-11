@@ -9,13 +9,16 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
 @Composable
 fun RowSwitch(
     modifier: Modifier = Modifier,
     label: String,
     checked: Boolean,
+    fontFamily: FontFamily? = null,
     onCheckedChange: (Boolean) -> Unit,
 ) {
     Row(
@@ -23,7 +26,11 @@ fun RowSwitch(
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        Text(text = label)
+        Text(
+            text = label,
+            fontSize = 16.sp,
+            fontFamily = fontFamily
+        )
         Spacer(modifier = Modifier.width(8.dp))
         Switch(checked = checked, onCheckedChange = onCheckedChange)
     }

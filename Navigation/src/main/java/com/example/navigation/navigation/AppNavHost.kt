@@ -35,9 +35,7 @@ fun AppNavHost(
             )
         }
         composable<AppRoute.ImagePicker> {
-            ImagePickerScreen(
-                popUp = navController::navigateUp
-            )
+            ImagePickerScreen()
         }
     }
 }
