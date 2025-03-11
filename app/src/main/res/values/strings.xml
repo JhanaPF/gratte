@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">PixeliseIt</string>
+    <string name="home_title">High Scores</string>
+
+    <string name="appbar_home">Home</string>
+    <string name="appbar_add">Add</string>
+    <string name="appbar_vote">Vote</string>
+    <string name="appbar_settings">Setting</string>
+</resources>
