@@ -8,17 +8,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.createGraph
-import com.example.pixeliseit.presentation.navigation.AppNavHost
-import com.example.pixeliseit.presentation.navigation.BottomNavigationBar
-import com.example.pixeliseit.presentation.screens.HomeScreen
-import com.example.pixeliseit.presentation.screens.imagePicker.ImagePickerScreen
+import com.example.navigation.navigation.AppNavHost
+import com.example.navigation.navigation.BottomNavigationBar
 import com.example.pixeliseit.presentation.theme.PixeliseItTheme
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.HiltAndroidApp
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -32,7 +26,11 @@ class MainActivity : ComponentActivity() {
                 Scaffold(
                     modifier = Modifier
                         .fillMaxSize(),
-                    bottomBar = { BottomNavigationBar(navController) }
+                    bottomBar = {
+                        BottomNavigationBar(
+                            navController
+                        )
+                    }
                 ) { innerPadding ->
                     AppNavHost(
                         modifier = Modifier.padding(innerPadding),

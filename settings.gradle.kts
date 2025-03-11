@@ -21,4 +21,7 @@ dependencyResolutionManagement {
 
 rootProject.name = "PixeliseIt"
 include(":app")
- 
+include(":Presentation")
+include(":Navigation")
+include(":Domain")
+include(":Data")
