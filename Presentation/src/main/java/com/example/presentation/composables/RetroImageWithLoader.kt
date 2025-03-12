@@ -60,7 +60,14 @@ fun RetroImageWithLoader(
         }
 
         if (isLoading && loader != null) {
-            loader()
+            // Just a little trick to avoid the loader from expanding the box
+            Box(
+                modifier = Modifier
+                    .matchParentSize()
+                    .align(Alignment.Center),
+            ) {
+                loader()
+            }
         }
     }
 }

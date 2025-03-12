@@ -20,8 +20,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class GalleryViewModel @Inject constructor(
-    private val convertBase64ToBitmapUseCase: ConvertBase64ToBitmapUseCase,
-    private val observeUserPicturesUseCase: ObserveUserPicturesUseCase,
+    observeUserPicturesUseCase: ObserveUserPicturesUseCase,
+    private val convertBase64ToByteArrayUseCase: ConvertBase64ToBitmapUseCase,
 ) : ViewModel() {
 
     private val _events: Channel<GalleryEvents> = Channel(Channel.BUFFERED)
@@ -34,11 +34,11 @@ class GalleryViewModel @Inject constructor(
                 pictures.fold(
                     onSuccess = { images ->
                         GalleryUiState.Success(
-                            pictures = images
-                                .map { imageModel ->
-                                    convertBase64ToBitmapUseCase(imageModel.image)
-                                }
-                                .toPersistentList(),
+                            pictures =
+                            images.map { imageModel ->
+                                // After multiple testing decoding here seems to bring the best performances
+                                convertBase64ToByteArrayUseCase(imageModel.image)
+                            }.toPersistentList(),
                         )
                     },
                     onFailure = { error ->

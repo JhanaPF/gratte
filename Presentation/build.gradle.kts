@@ -55,6 +55,7 @@ dependencies {
     implementation (libs.lottie)
     implementation (libs.lottie.compose)
     implementation(libs.kotlinx.collections.immutable)
+    implementation(libs.coil.compose)
     kapt(libs.hilt.android.compiler)
 }
 

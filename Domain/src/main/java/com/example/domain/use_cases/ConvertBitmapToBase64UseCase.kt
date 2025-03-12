@@ -14,7 +14,7 @@ class ConvertBitmapToBase64UseCase @Inject constructor() {
         // Heavy computation going on here i need the default dispatcher
         withContext(Dispatchers.Default) {
             // I unfortunately need to scale the bitmap to avoid "Row too big to fit into CursorWindow"..
-            val scaledBitmap = scaleBitmap(bitmap, maxWidth = 1200, maxHeight = 1200)
+            val scaledBitmap = scaleBitmap(bitmap, maxWidth = 800, maxHeight = 800)
 
             bitmapToBase64(scaledBitmap)
         }
