@@ -23,7 +23,7 @@ import androidx.compose.ui.unit.dp
 import com.example.presentation.R
 
 @Composable
-fun RetroImageWithLoader(
+fun RetroBitmapWithLoader(
     modifier: Modifier = Modifier,
     image: Bitmap,
     borderColor: Color,
@@ -79,7 +79,7 @@ fun RetroImageWithLoaderPreview() {
     val bitmap: Bitmap =
         BitmapFactory.decodeResource(context.resources, R.drawable.add_image_placeholder)
 
-    RetroImageWithLoader(
+    RetroBitmapWithLoader(
         image = bitmap,
         borderColor = Color.Red,
         isLoading = true,

@@ -40,6 +40,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.presentation.R
+import com.example.presentation.composables.ErrorView
 import com.example.presentation.composables.ImageItem
 import com.example.presentation.composables.LottieLoader
 import com.example.presentation.theme.retro
@@ -198,31 +199,6 @@ fun LoadingIndicator(
             modifier = Modifier.align(Alignment.Center),
             resId = R.raw.loader,
         )
-    }
-}
-
-@Composable
-fun ErrorView(
-    modifier: Modifier = Modifier,
-    message: Throwable,
-) {
-    Box(
-        modifier = modifier.fillMaxSize(),
-    ) {
-        Column(
-            Modifier.align(Alignment.Center),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(16.dp),
-        ) {
-            Icon(
-                imageVector = Icons.Default.Warning,
-                contentDescription = "Error",
-            )
-            Text(
-                text = message.message ?: stringResource(R.string.unknown_error),
-                color = MaterialTheme.colorScheme.error,
-            )
-        }
     }
 }
 

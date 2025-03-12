@@ -1,14 +1,12 @@
 package com.example.presentation.screens.imageView
 
-import android.graphics.Bitmap
-
 sealed interface ImageViewUiState {
-    data class Image(
-        val image: Bitmap,
+    data class Success(
+        val image: ByteArray,
     ) : ImageViewUiState
 
     data object Loading : ImageViewUiState
     data class Error(
-        val message: String,
+        val message: Throwable,
     ) : ImageViewUiState
 }

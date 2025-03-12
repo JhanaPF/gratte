@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.librairy)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.kotlin.serialization)
     id("kotlin-kapt")
     id("com.google.dagger.hilt.android")
 }
@@ -51,6 +52,7 @@ dependencies {
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.hilt.android)
     implementation(libs.hilt.compose)
+    implementation(libs.androidx.navigation.compose)
     debugImplementation(libs.ui.tooling)
     implementation (libs.lottie)
     implementation (libs.lottie.compose)

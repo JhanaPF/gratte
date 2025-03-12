@@ -11,7 +11,4 @@ interface AppRoute {
 
     @Serializable
     object Gallery : AppRoute
-
-    @Serializable
-    data class ImageView(val imageId: Int) : AppRoute
 }

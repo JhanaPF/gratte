@@ -10,4 +10,5 @@ interface ImageRepository {
     suspend fun insertImage(image: ImageModel)
     suspend fun updateScore(imageId: Int, score: Int)
     suspend fun deleteAllImagesByUserId(userId: Int)
+    suspend fun getImageById(pictureId: Int): ImageModel?
 }

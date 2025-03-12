@@ -39,7 +39,7 @@ import com.example.presentation.utils.loadBitmapFromUri
 import com.example.presentation.utils.randomFlashyColor
 import com.example.presentation.R
 import com.example.presentation.composables.NeonButtonSize
-import com.example.presentation.composables.RetroImageWithLoader
+import com.example.presentation.composables.RetroBitmapWithLoader
 import com.example.presentation.composables.LottieLoader
 import com.example.presentation.composables.RetroNeonButton
 import com.example.presentation.composables.RowSwitch
@@ -107,7 +107,7 @@ fun PixelatedImagePicker(
         )
 
         if (state.image != null) {
-            RetroImageWithLoader(
+            RetroBitmapWithLoader(
                 image = state.image,
                 borderColor = borderColor,
                 isLoading = state.isLoading,

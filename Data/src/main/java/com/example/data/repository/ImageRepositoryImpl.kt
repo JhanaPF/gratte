@@ -29,4 +29,7 @@ class ImageRepositoryImpl @Inject constructor(
 
     override suspend fun deleteAllImagesByUserId(userId: Int) =
         imageLocalDataSource.deleteAllImagesByUserId(userId)
+
+    override suspend fun getImageById(pictureId: Int): ImageModel? =
+        imageLocalDataSource.getImageById(pictureId)
 }

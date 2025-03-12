@@ -11,11 +11,11 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.toRoute
 import com.example.presentation.screens.HomeScreen
 import com.example.presentation.screens.gallery.GalleryScreen
 import com.example.presentation.screens.imagePicker.ImagePickerScreen
 import com.example.presentation.screens.imageView.ImageViewScreen
+import com.example.presentation.screens.imageView.navigation.ImageView
 
 @Composable
 fun AppNavHost(
@@ -43,15 +43,13 @@ fun AppNavHost(
         composable<AppRoute.Gallery> {
             GalleryScreen(
                 navigateToImageView = { imageId ->
-                    navController.navigate(AppRoute.ImageView(imageId = imageId))
+                    navController.navigate(ImageView(imageId = imageId))
                 },
                 navigateToImagePicker = { navController.navigate(AppRoute.ImagePicker) },
             )
         }
-        composable<AppRoute.ImageView> { backStackEntry ->
-            val image = backStackEntry.toRoute<AppRoute.ImageView>()
+        composable<ImageView> { _ ->
             ImageViewScreen(
-                imageId = image.imageId,
                 navigateBack = { navController.navigateUp() },
             )
         }
