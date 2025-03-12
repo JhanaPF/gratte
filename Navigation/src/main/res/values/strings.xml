@@ -2,5 +2,5 @@
     <string name="appbar_home">Home</string>
     <string name="appbar_add">Add</string>
     <string name="appbar_vote">Vote</string>
-    <string name="appbar_settings">Setting</string>
+    <string name="appbar_gallery">Gallery</string>
 </resources>

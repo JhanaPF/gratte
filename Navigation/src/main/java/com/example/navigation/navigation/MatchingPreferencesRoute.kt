@@ -8,6 +8,12 @@ interface AppRoute {
 
     @Serializable
     object ImagePicker : AppRoute
+
+    @Serializable
+    object Gallery : AppRoute
+
+    @Serializable
+    object ImageView : AppRoute
 }
 
 val AppRoute.route: String

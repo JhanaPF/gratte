@@ -12,4 +12,8 @@
     <string name="row_label">Crt Effect</string>
     <string name="send_button_label">Send it</string>
 
+    //Gallery
+    <string name="gallery_title">View It!</string>
+
+
 </resources>

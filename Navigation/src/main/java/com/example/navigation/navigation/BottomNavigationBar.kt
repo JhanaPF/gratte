@@ -1,10 +1,10 @@
 package com.example.navigation.navigation
 
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
@@ -46,9 +46,9 @@ fun BottomNavigationBar(
             route = AppRoute.Home,
         ),
         NavigationItem(
-            title = stringResource(R.string.appbar_settings),
-            icon = Icons.Default.Settings,
-            route = AppRoute.Home,
+            title = stringResource(R.string.appbar_gallery),
+            icon = Icons.Default.AccountCircle,
+            route = AppRoute.Gallery,
         ),
     )
 

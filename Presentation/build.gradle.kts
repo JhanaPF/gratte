@@ -54,6 +54,7 @@ dependencies {
     debugImplementation(libs.ui.tooling)
     implementation (libs.lottie)
     implementation (libs.lottie.compose)
+    implementation(libs.kotlinx.collections.immutable)
     kapt(libs.hilt.android.compiler)
 }
 

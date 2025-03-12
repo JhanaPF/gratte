@@ -80,6 +80,9 @@ fun RetroImageWithLoaderPreview() {
         isLoading = true,
         onCloseClick = { },
     ) {
-        RetroLoader()
+        LottieLoader(
+            modifier = Modifier.align(Alignment.Center),
+            resId = R.raw.loader,
+        )
     }
 }

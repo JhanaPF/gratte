@@ -40,7 +40,7 @@ import com.example.presentation.utils.randomFlashyColor
 import com.example.presentation.R
 import com.example.presentation.composables.NeonButtonSize
 import com.example.presentation.composables.RetroImageWithLoader
-import com.example.presentation.composables.RetroLoader
+import com.example.presentation.composables.LottieLoader
 import com.example.presentation.composables.RetroNeonButton
 import com.example.presentation.composables.RowSwitch
 import com.example.presentation.theme.retro
@@ -113,11 +113,12 @@ fun PixelatedImagePicker(
                 isLoading = state.isLoading,
                 onCloseClick = onCloseImageClick,
             ) {
-                RetroLoader(
+                LottieLoader(
                     modifier = Modifier
                         .align(Alignment.Center)
                         .heightIn(max = 400.dp)
                         .width(400.dp),
+                    resId = R.raw.loader,
                 )
             }
         } else {
