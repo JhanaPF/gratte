@@ -14,7 +14,6 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -33,17 +32,20 @@ class ImagePickerViewModel @Inject constructor(
     private val originalImageFlow: MutableStateFlow<Bitmap?> =
         MutableStateFlow(null)
 
+    private val isLoadingFlow: MutableStateFlow<Boolean> =
+        MutableStateFlow(false)
+
     private val filterParamsFlow = MutableStateFlow(FilterParameters())
 
     val state: StateFlow<ImagePickerUiState> =
         combine(
             originalImageFlow,
-            filterParamsFlow
-        ) { image, params ->
-            image?.let { processImageUseCase(it, params) }
-        }.map { image ->
+            filterParamsFlow,
+            isLoadingFlow,
+        ) { image, params, isLoading ->
             ImagePickerUiState(
-                image = image,
+                image = image?.let { processImageUseCase(it, params) },
+                isLoading = isLoading
             )
         }.flowOn(Dispatchers.IO)
             .stateIn(
@@ -55,10 +57,12 @@ class ImagePickerViewModel @Inject constructor(
     fun onSendImageClicked() {
         state.value.image?.let { image ->
             viewModelScope.launch {
-                sendUserPictureUserCase(ImageModel(image = image))
+                isLoadingFlow.value = true
+                sendUserPictureUserCase(image)
                     .onSuccess {
                         originalImageFlow.value = null
                     }
+                isLoadingFlow.value = false
             }
         }
     }
@@ -73,5 +77,9 @@ class ImagePickerViewModel @Inject constructor(
 
     fun onCrtToggled(enabled: Boolean) {
         filterParamsFlow.value = filterParamsFlow.value.copy(applyCrt = enabled)
+    }
+
+    fun onCloseImageClick() {
+        originalImageFlow.value = null
     }
 }

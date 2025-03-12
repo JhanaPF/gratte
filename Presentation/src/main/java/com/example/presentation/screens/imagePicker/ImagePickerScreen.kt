@@ -27,7 +27,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -36,14 +35,15 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.example.pixeliseit.presentation.utils.loadBitmapFromUri
-import com.example.pixeliseit.presentation.utils.randomFlashyColor
+import com.example.presentation.utils.loadBitmapFromUri
+import com.example.presentation.utils.randomFlashyColor
 import com.example.presentation.R
 import com.example.presentation.composables.NeonButtonSize
+import com.example.presentation.composables.RetroImageWithLoader
+import com.example.presentation.composables.RetroLoader
 import com.example.presentation.composables.RetroNeonButton
 import com.example.presentation.composables.RowSwitch
 import com.example.presentation.theme.retro
-import kotlin.reflect.KFunction0
 
 private const val DEFAULT_PIXEL_SIZE = 1f
 private const val SLIDER_MAX = 50f
@@ -60,6 +60,7 @@ fun ImagePickerScreen(
         onPixelSizeChanged = viewModel::onPixelSizeChanged,
         onCrtToggled = viewModel::onCrtToggled,
         onSendImageClicked = viewModel::onSendImageClicked,
+        onCloseImageClick = viewModel::onCloseImageClick,
     )
 }
 
@@ -71,6 +72,7 @@ fun PixelatedImagePicker(
     onPixelSizeChanged: (Float) -> Unit,
     onCrtToggled: (Boolean) -> Unit,
     onSendImageClicked: () -> Unit,
+    onCloseImageClick: () -> Unit = {},
 ) {
     val context = LocalContext.current
 
@@ -105,15 +107,19 @@ fun PixelatedImagePicker(
         )
 
         if (state.image != null) {
-            Image(
-                bitmap = state.image.asImageBitmap(),
-                contentScale = ContentScale.Fit,
-                contentDescription = "Pixelated Image",
-                modifier = Modifier
-                    .heightIn(max = 440.dp)
-                    .padding(vertical = 8.dp)
-                    .border(2.dp, borderColor)
-            )
+            RetroImageWithLoader(
+                image = state.image,
+                borderColor = borderColor,
+                isLoading = state.isLoading,
+                onCloseClick = onCloseImageClick,
+            ) {
+                RetroLoader(
+                    modifier = Modifier
+                        .align(Alignment.Center)
+                        .heightIn(max = 400.dp)
+                        .width(400.dp)
+                )
+            }
         } else {
             Image(
                 painter = painterResource(id = R.drawable.add_image_placeholder),

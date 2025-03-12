@@ -1,4 +1,4 @@
-package com.example.pixeliseit.presentation.utils
+package com.example.presentation.utils
 
 import android.content.Context
 import android.graphics.Bitmap

@@ -52,6 +52,8 @@ dependencies {
     implementation(libs.hilt.android)
     implementation(libs.hilt.compose)
     debugImplementation(libs.ui.tooling)
+    implementation (libs.lottie)
+    implementation (libs.lottie.compose)
     kapt(libs.hilt.android.compiler)
 }
 
