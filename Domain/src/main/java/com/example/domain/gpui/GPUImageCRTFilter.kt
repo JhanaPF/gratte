@@ -3,7 +3,7 @@ package com.example.domain.gpui
 import jp.co.cyberagent.android.gpuimage.filter.GPUImageFilter
 import jp.co.cyberagent.android.gpuimage.filter.GPUImageGaussianBlurFilter.VERTEX_SHADER
 
-internal class GPUImageCRTFilter: GPUImageFilter(VERTEX_SHADER, CRT_FRAGMENT_SHADER) {
+internal class GPUImageCRTFilter : GPUImageFilter(VERTEX_SHADER, CRT_FRAGMENT_SHADER) {
     companion object {
         // Custom fragment shader to simulate CRT effect.
         val CRT_FRAGMENT_SHADER = """

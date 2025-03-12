@@ -6,7 +6,7 @@ import com.example.domain.repository.ImageRepository
 import javax.inject.Inject
 
 class ImageRepositoryImpl @Inject constructor(
-    private val imageLocalDataSource: ImageLocalDataSource
+    private val imageLocalDataSource: ImageLocalDataSource,
 ) : ImageRepository {
     override fun observeImagesByUserId(userId: Int) =
         imageLocalDataSource.observeImagesByUserId(userId)

@@ -13,24 +13,22 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.presentation.R
-import com.example.presentation.composables.ScoreRow
 import com.example.presentation.theme.PixeliseItTheme
 import com.example.presentation.theme.retro
 
 @Composable
 fun HomeScreen(
-    navigateToImagePicker: () -> Unit
+    navigateToImagePicker: () -> Unit,
 ) {
     PixeliseItTheme {
         Scaffold { innerPadding ->
             HomeContent(
                 navigateToImagePicker = navigateToImagePicker,
-                modifier = Modifier.padding(innerPadding)
+                modifier = Modifier.padding(innerPadding),
             )
         }
     }
@@ -39,7 +37,7 @@ fun HomeScreen(
 @Composable
 fun HomeContent(
     navigateToImagePicker: () -> Unit,
-    modifier: Modifier
+    modifier: Modifier,
 ) {
     Box(
         modifier = modifier
@@ -50,14 +48,14 @@ fun HomeContent(
             modifier = Modifier
                 .align(Alignment.TopCenter)
                 .padding(horizontal = 24.dp)
-                .padding(bottom = 128.dp)
+                .padding(bottom = 128.dp),
         ) {
             Text(
                 modifier = Modifier.align(Alignment.CenterHorizontally),
                 text = stringResource(id = R.string.app_name),
                 color = MaterialTheme.colorScheme.primary,
                 fontFamily = retro,
-                fontSize = 24.sp
+                fontSize = 24.sp,
             )
             Spacer(modifier = Modifier.padding(24.dp))
             Text(
@@ -66,7 +64,7 @@ fun HomeContent(
                     .padding(bottom = 24.dp),
                 text = stringResource(id = R.string.home_title),
                 fontFamily = retro,
-                fontSize = 24.sp
+                fontSize = 24.sp,
             )
 
             LazyColumn {
@@ -86,7 +84,7 @@ fun HomeContent(
             },
             modifier = Modifier
                 .padding(bottom = 24.dp)
-                .align(Alignment.BottomCenter)
+                .align(Alignment.BottomCenter),
         ) {
             Text("Open Image Picker")
         }

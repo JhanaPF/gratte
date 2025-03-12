@@ -25,7 +25,7 @@ import com.example.navigation.R
 
 @Composable
 fun BottomNavigationBar(
-    navController: NavController
+    navController: NavController,
 ) {
     var selectedItem by rememberSaveable { mutableIntStateOf(0) }
 
@@ -33,23 +33,23 @@ fun BottomNavigationBar(
         NavigationItem(
             title = stringResource(R.string.appbar_home),
             icon = Icons.Default.Home,
-            route = AppRoute.Home
+            route = AppRoute.Home,
         ),
         NavigationItem(
             title = stringResource(R.string.appbar_add),
             icon = Icons.Default.Add,
-            route = AppRoute.ImagePicker
+            route = AppRoute.ImagePicker,
         ),
         NavigationItem(
             title = stringResource(R.string.appbar_vote),
             icon = Icons.Default.Favorite,
-            route = AppRoute.Home
+            route = AppRoute.Home,
         ),
         NavigationItem(
             title = stringResource(R.string.appbar_settings),
             icon = Icons.Default.Settings,
-            route = AppRoute.Home
-        )
+            route = AppRoute.Home,
+        ),
     )
 
     NavigationBar(
@@ -74,15 +74,17 @@ fun BottomNavigationBar(
                 label = {
                     Text(
                         item.title,
-                        color = if (index == selectedItem)
+                        color = if (index == selectedItem) {
                             Color.White
-                        else MaterialTheme.colorScheme.onSecondary
+                        } else {
+                            MaterialTheme.colorScheme.onSecondary
+                        },
                     )
                 },
                 colors = NavigationBarItemDefaults.colors(
                     selectedIconColor = MaterialTheme.colorScheme.surface,
-                    indicatorColor = Color.Green
-                )
+                    indicatorColor = Color.Green,
+                ),
 
             )
         }
@@ -92,5 +94,5 @@ fun BottomNavigationBar(
 data class NavigationItem(
     val title: String,
     val icon: ImageVector,
-    val route: AppRoute
+    val route: AppRoute,
 )

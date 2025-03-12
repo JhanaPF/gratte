@@ -19,8 +19,8 @@ fun loadBitmapFromUri(context: Context, uri: Uri): Bitmap? {
 }
 
 fun randomFlashyColor(): Color {
-    val hue = Random.nextInt(0, 360)      // Hue between 0 and 359
-    val saturation = 0.9f                // Keep saturation high
-    val value = 1.0f                     // Full brightness
+    val hue = Random.nextInt(0, 360)
+    val saturation = 0.9f
+    val value = 1.0f
     return Color.hsv(hue.toFloat(), saturation, value)
 }

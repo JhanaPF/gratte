@@ -47,7 +47,6 @@ dependencies {
     implementation(libs.hilt.android)
     implementation(libs.hilt.compose)
     implementation(libs.androidx.room.runtime)
-    annotationProcessor(libs.androidx.room.compiler)
     implementation(libs.androidx.room.ktx)
     kapt(libs.hilt.android.compiler)
     ksp(libs.androidx.room.compiler)

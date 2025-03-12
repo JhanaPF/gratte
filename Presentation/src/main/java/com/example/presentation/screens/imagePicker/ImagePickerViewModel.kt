@@ -3,7 +3,6 @@ package com.example.presentation.screens.imagePicker
 import android.graphics.Bitmap
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.domain.model.ImageModel
 import com.example.domain.use_cases.FilterParameters
 import com.example.domain.use_cases.ProcessImageUseCase
 import com.example.domain.use_cases.SendUserPictureUserCase
@@ -45,7 +44,7 @@ class ImagePickerViewModel @Inject constructor(
         ) { image, params, isLoading ->
             ImagePickerUiState(
                 image = image?.let { processImageUseCase(it, params) },
-                isLoading = isLoading
+                isLoading = isLoading,
             )
         }.flowOn(Dispatchers.IO)
             .stateIn(

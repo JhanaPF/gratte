@@ -5,5 +5,8 @@ plugins {
     alias(libs.plugins.kotlin.compose) apply false
     alias(libs.plugins.hilt.android) apply false
     alias(libs.plugins.android.librairy) apply false
+    alias(libs.plugins.build.spotlessGradle)
     id("com.google.devtools.ksp") version libs.versions.kspVersion apply false
 }
+
+apply(from = "${rootDir}/spotless.gradle")

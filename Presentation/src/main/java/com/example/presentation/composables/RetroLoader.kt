@@ -15,13 +15,13 @@ fun RetroLoader(
     modifier: Modifier = Modifier,
 ) {
     val composition by
-    rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.loader))
+        rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.loader))
 
     val progress by
-    animateLottieCompositionAsState(
-        composition = composition,
-        iterations = LottieConstants.IterateForever,
-    )
+        animateLottieCompositionAsState(
+            composition = composition,
+            iterations = LottieConstants.IterateForever,
+        )
 
     LottieAnimation(
         composition = composition,

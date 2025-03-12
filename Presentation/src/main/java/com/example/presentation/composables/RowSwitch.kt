@@ -29,7 +29,7 @@ fun RowSwitch(
         Text(
             text = label,
             fontSize = 16.sp,
-            fontFamily = fontFamily
+            fontFamily = fontFamily,
         )
         Spacer(modifier = Modifier.width(8.dp))
         Switch(checked = checked, onCheckedChange = onCheckedChange)

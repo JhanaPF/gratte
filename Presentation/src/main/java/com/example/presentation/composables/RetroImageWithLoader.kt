@@ -29,28 +29,30 @@ fun RetroImageWithLoader(
     borderColor: Color,
     isLoading: Boolean = false,
     onCloseClick: (() -> Unit)? = null,
-    loader: @Composable() (BoxScope.() -> Unit)? = null,
+    loader:
+    @Composable()
+    (BoxScope.() -> Unit)? = null,
 ) {
     Box(
         modifier = modifier
             .wrapContentSize()
             .heightIn(max = 400.dp)
             .padding(vertical = 8.dp)
-            .border(2.dp, borderColor)
+            .border(2.dp, borderColor),
     ) {
         Image(
             bitmap = image.asImageBitmap(),
             contentScale = ContentScale.Fit,
             contentDescription = "Pixelated Image",
             modifier = Modifier
-                .align(Alignment.Center)
+                .align(Alignment.Center),
         )
         if (onCloseClick != null) {
             IconButton(
                 modifier = Modifier
                     .align(Alignment.TopEnd)
                     .padding(top = 8.dp, end = 8.dp),
-                onClick = { onCloseClick() }
+                onClick = { onCloseClick() },
             ) {
                 Image(
                     painter = painterResource(id = R.drawable.icn_quit),
@@ -76,7 +78,7 @@ fun RetroImageWithLoaderPreview() {
         image = bitmap,
         borderColor = Color.Red,
         isLoading = true,
-        onCloseClick = { }
+        onCloseClick = { },
     ) {
         RetroLoader()
     }

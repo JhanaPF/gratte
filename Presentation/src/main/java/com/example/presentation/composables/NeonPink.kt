@@ -36,14 +36,14 @@ fun RetroNeonButton(
         colors = ButtonDefaults.buttonColors(containerColor = Color.White),
         modifier = modifier
             .height(size.height)
-            .width(size.width)
+            .width(size.width),
     ) {
         Text(
             text = text,
             color = Black,
             fontSize = size.fontSize.sp,
             fontFamily = fontFamily,
-            modifier = Modifier.padding(8.dp)
+            modifier = Modifier.padding(8.dp),
         )
     }
 }
@@ -73,23 +73,29 @@ enum class NeonButtonSize(
 @Preview
 @Composable
 private fun RetroNeonButtonLargePreview() {
-    RetroNeonButton(text = "Send It",
+    RetroNeonButton(
+        text = "Send It",
         size = NeonButtonSize.Large,
-        onClick = {})
+        onClick = {},
+    )
 }
 
 @Preview
 @Composable
 private fun RetroNeonButtonMediumPreview() {
-    RetroNeonButton(text = "Send It",
+    RetroNeonButton(
+        text = "Send It",
         size = NeonButtonSize.Medium,
-        onClick = {})
+        onClick = {},
+    )
 }
 
 @Preview
 @Composable
 private fun RetroNeonButtonSmallPreview() {
-    RetroNeonButton(text = "Send It",
+    RetroNeonButton(
+        text = "Send It",
         size = NeonButtonSize.Small,
-        onClick = {})
+        onClick = {},
+    )
 }

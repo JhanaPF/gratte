@@ -50,7 +50,7 @@ private const val SLIDER_MAX = 50f
 
 @Composable
 fun ImagePickerScreen(
-    viewModel: ImagePickerViewModel = hiltViewModel()
+    viewModel: ImagePickerViewModel = hiltViewModel(),
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
 
@@ -89,14 +89,14 @@ fun PixelatedImagePicker(
         rememberLauncherForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
             onSelectImage(
                 uri?.let { loadBitmapFromUri(context, it) }
-                    ?: return@rememberLauncherForActivityResult
+                    ?: return@rememberLauncherForActivityResult,
             )
         }
 
     Column(
         modifier = modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(12.dp)
+        verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
         Text(
             modifier = Modifier.padding(top = 16.dp, bottom = 8.dp),
@@ -117,7 +117,7 @@ fun PixelatedImagePicker(
                     modifier = Modifier
                         .align(Alignment.Center)
                         .heightIn(max = 400.dp)
-                        .width(400.dp)
+                        .width(400.dp),
                 )
             }
         } else {
@@ -129,17 +129,16 @@ fun PixelatedImagePicker(
                     .defaultMinSize(minHeight = 400.dp, minWidth = 300.dp)
                     .padding(vertical = 8.dp)
                     .border(2.dp, borderColor)
-                    .background(Color.LightGray)
+                    .background(Color.LightGray),
 
             )
         }
-
 
         RetroNeonButton(
             text = stringResource(R.string.select_button_label),
             borderColor = borderColor,
             size = NeonButtonSize.Small,
-            onClick = { imagePickerLauncher.launch("image/*") }
+            onClick = { imagePickerLauncher.launch("image/*") },
         )
 
         Slider(
@@ -157,7 +156,7 @@ fun PixelatedImagePicker(
         Text(
             text = stringResource(R.string.slider_label, pixelSize.toInt()),
             fontFamily = retro,
-            fontSize = 14.sp
+            fontSize = 14.sp,
         )
 
         RowSwitch(
@@ -175,7 +174,7 @@ fun PixelatedImagePicker(
             borderColor = borderColor,
             size = NeonButtonSize.Medium,
             text = stringResource(R.string.send_button_label),
-            onClick = { onSendImageClicked() }
+            onClick = { onSendImageClicked() },
         )
     }
 }

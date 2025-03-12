@@ -26,7 +26,7 @@ fun ScoreRow(
             .fillMaxWidth()
             .padding(8.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         Text(
             color = color,
@@ -56,6 +56,6 @@ fun ScoreRowPreview() {
         rank = 1,
         score = 1000,
         name = "John Doe",
-        color = Color.Red
+        color = Color.Red,
     )
 }

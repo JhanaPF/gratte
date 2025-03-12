@@ -4,5 +4,5 @@ data class ImageModel(
     val id: Int? = null,
     val userId: Int? = null,
     val image: String,
-    val score: Int? = 0
+    val score: Int? = 0,
 )

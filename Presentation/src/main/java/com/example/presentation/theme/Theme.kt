@@ -19,7 +19,7 @@ private val DarkColorScheme = darkColorScheme(
     surface = Black,
     onPrimary = Black,
     onSurface = White,
-    onSecondary = Color.LightGray
+    onSecondary = Color.LightGray,
 )
 
 private val LightColorScheme = lightColorScheme(
@@ -40,7 +40,7 @@ fun PixeliseItTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     // Dynamic color is available on Android 12+
     dynamicColor: Boolean = false,
-    content: @Composable () -> Unit
+    content: @Composable () -> Unit,
 ) {
     val colorScheme = when {
         dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
@@ -55,6 +55,6 @@ fun PixeliseItTheme(
     MaterialTheme(
         colorScheme = colorScheme,
         typography = Typography,
-        content = content
+        content = content,
     )
 }

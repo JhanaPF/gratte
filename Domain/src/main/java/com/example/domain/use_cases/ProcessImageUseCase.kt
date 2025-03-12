@@ -5,11 +5,11 @@ import javax.inject.Inject
 
 class ProcessImageUseCase @Inject constructor(
     private val applyPixelationEffectUseCase: ApplyPixelationEffectUseCase,
-    private val applyCRTEffectUseCase: ApplyCRTEffectUseCase
+    private val applyCRTEffectUseCase: ApplyCRTEffectUseCase,
 ) {
     operator fun invoke(
         image: Bitmap,
-        params: FilterParameters
+        params: FilterParameters,
     ): Bitmap {
         val pixelated = applyPixelationEffectUseCase(image, params.pixelSize)
         return if (params.applyCrt) {

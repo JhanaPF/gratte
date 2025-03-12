@@ -25,13 +25,13 @@ fun AppNavHost(
         enterTransition = { slideInHorizontally { it } },
         exitTransition = { fadeOut() },
         popEnterTransition = { expandHorizontally { it } },
-        popExitTransition = { fadeOut()},
+        popExitTransition = { fadeOut() },
         navController = navController,
         startDestination = startDestination,
     ) {
         composable<AppRoute.Home> {
             HomeScreen(
-                navigateToImagePicker = { navController.navigate(AppRoute.ImagePicker) }
+                navigateToImagePicker = { navController.navigate(AppRoute.ImagePicker) },
             )
         }
         composable<AppRoute.ImagePicker> {
