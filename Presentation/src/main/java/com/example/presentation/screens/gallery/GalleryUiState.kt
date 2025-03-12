@@ -6,8 +6,8 @@ import kotlinx.collections.immutable.persistentListOf
 
 sealed interface GalleryUiState {
     data object Loading : GalleryUiState
-    data object Error : GalleryUiState
+    data class Error(val message: Throwable) : GalleryUiState
     data class Success(
-        val image: PersistentList<Bitmap> = persistentListOf(),
+        val pictures: PersistentList<Bitmap> = persistentListOf(),
     ) : GalleryUiState
 }

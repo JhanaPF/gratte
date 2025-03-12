@@ -8,7 +8,7 @@ import kotlinx.coroutines.withContext
 import java.io.ByteArrayOutputStream
 import javax.inject.Inject
 
-class ConvertImageToBase64UseCase @Inject constructor() {
+class ConvertBitmapToBase64UseCase @Inject constructor() {
     suspend operator fun invoke(bitmap: Bitmap): String =
         // Heavy computation going on here i need the default dispatcher
         withContext(Dispatchers.Default) {

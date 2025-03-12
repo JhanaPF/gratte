@@ -1,10 +1,5 @@
 package com.example.data.data_source.mapper
 
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.util.Base64
-import android.util.Base64.DEFAULT
-import androidx.room.TypeConverter
 import com.example.data.model.ImageEntity
 import com.example.domain.model.ImageModel
 
@@ -35,15 +30,3 @@ fun ImageModel.toEntity(): ImageEntity {
 
 fun List<ImageModel>.toEntity(): List<ImageEntity> =
     this.map { it.toEntity() }
-
-@TypeConverter
-fun base64ToBitmap(base64String: String): Bitmap {
-    // convert Base64 String into byteArray
-    val byteArray = Base64.decode(base64String, DEFAULT)
-    // byteArray to Bitmap
-    return BitmapFactory.decodeByteArray(
-        byteArray,
-        0,
-        byteArray.size,
-    )
-}

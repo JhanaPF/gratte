@@ -1,10 +1,14 @@
 package com.example.presentation.screens.gallery
 
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.Icon
@@ -15,6 +19,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -69,9 +74,12 @@ fun GalleryScreenContent(
     onImageClick: () -> Unit,
 ) {
     when (state) {
-        GalleryUiState.Error -> ErrorView()
         GalleryUiState.Loading -> LoadingIndicator()
-        is GalleryUiState.Success -> ImageGrid(state, onImageClick)
+        is GalleryUiState.Error -> ErrorView(message = state.message)
+        is GalleryUiState.Success -> ImageGrid(
+            state = state,
+            onImageClick = onImageClick,
+        )
     }
 }
 
@@ -87,7 +95,14 @@ fun ImageGrid(
         verticalArrangement = Arrangement.spacedBy(24.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        items(state.image.size) { index ->
+        items(state.pictures) { picture ->
+            Image(
+                bitmap = picture.asImageBitmap(),
+                contentDescription = "Image ${state.pictures.indexOf(picture)}",
+                modifier = Modifier
+                    .padding(8.dp)
+                    .clickable { onImageClick() },
+            )
         }
     }
 }
@@ -109,14 +124,24 @@ fun LoadingIndicator(
 @Composable
 fun ErrorView(
     modifier: Modifier = Modifier,
+    message: Throwable,
 ) {
     Box(
         modifier = modifier.fillMaxSize(),
     ) {
-        Icon(
-            modifier = Modifier.align(Alignment.Center),
-            imageVector = Icons.Default.Warning,
-            contentDescription = "Error",
-        )
+        Column(
+            Modifier.align(Alignment.Center),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(16.dp),
+        ) {
+            Icon(
+                imageVector = Icons.Default.Warning,
+                contentDescription = "Error",
+            )
+            Text(
+                text = message.message ?: stringResource(R.string.unknown_error),
+                color = MaterialTheme.colorScheme.error,
+            )
+        }
     }
 }

@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.use_cases.FilterParameters
 import com.example.domain.use_cases.ProcessImageUseCase
-import com.example.domain.use_cases.SendUserPictureUserCase
+import com.example.domain.use_cases.SendUserPictureUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -20,7 +20,7 @@ import javax.inject.Inject
 @HiltViewModel
 class ImagePickerViewModel @Inject constructor(
     val processImageUseCase: ProcessImageUseCase,
-    val sendUserPictureUserCase: SendUserPictureUserCase,
+    val sendUserPictureUseCase: SendUserPictureUseCase,
 ) : ViewModel() {
 
     private val initialState: ImagePickerUiState =
@@ -57,7 +57,7 @@ class ImagePickerViewModel @Inject constructor(
         state.value.image?.let { image ->
             viewModelScope.launch {
                 isLoadingFlow.value = true
-                sendUserPictureUserCase(image)
+                sendUserPictureUseCase(image)
                     .onSuccess {
                         originalImageFlow.value = null
                     }

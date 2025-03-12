@@ -29,9 +29,7 @@ fun RetroImageWithLoader(
     borderColor: Color,
     isLoading: Boolean = false,
     onCloseClick: (() -> Unit)? = null,
-    loader:
-    @Composable()
-    (BoxScope.() -> Unit)? = null,
+    loader: @Composable (BoxScope.() -> Unit)? = null,
 ) {
     Box(
         modifier = modifier
