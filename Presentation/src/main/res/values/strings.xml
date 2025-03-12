@@ -15,6 +15,9 @@
     //Gallery
     <string name="gallery_title">View It!</string>
     <string name="unknown_error">An Unknown error occurred</string>
+    <string name="empty_text">Start By Adding Some !</string>
+    <string name="delete_all_images_title">Delete all pictures ?</string>
+    <string name="delete_all_images_text">You won\'t get a second chance</string>
 
 
 </resources>

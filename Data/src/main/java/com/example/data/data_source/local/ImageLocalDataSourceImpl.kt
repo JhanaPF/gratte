@@ -32,5 +32,5 @@ class ImageLocalDataSourceImpl @Inject constructor(
 
     override suspend fun deleteImageById(imageId: Int) = imageDao.deleteById(imageId)
 
-    override suspend fun deleteImage(image: ImageModel) = imageDao.delete(image.toEntity())
+    override suspend fun deleteAllImagesByUserId(userId: Int) = imageDao.deleteAllByUserId(userId)
 }

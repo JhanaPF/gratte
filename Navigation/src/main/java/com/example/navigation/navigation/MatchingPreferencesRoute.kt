@@ -13,12 +13,5 @@ interface AppRoute {
     object Gallery : AppRoute
 
     @Serializable
-    object ImageView : AppRoute
+    data class ImageView(val imageId: Int) : AppRoute
 }
-
-val AppRoute.route: String
-    get() = when (this) {
-        AppRoute.Home -> "home"
-        AppRoute.ImagePicker -> "image_picker"
-        else -> "home"
-    }

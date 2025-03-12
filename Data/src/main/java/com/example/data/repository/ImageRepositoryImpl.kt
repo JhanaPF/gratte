@@ -26,4 +26,7 @@ class ImageRepositoryImpl @Inject constructor(
     override suspend fun insertImage(image: ImageModel) = imageLocalDataSource.insertImage(image)
     override suspend fun updateScore(imageId: Int, score: Int) =
         imageLocalDataSource.updateScore(imageId, score)
+
+    override suspend fun deleteAllImagesByUserId(userId: Int) =
+        imageLocalDataSource.deleteAllImagesByUserId(userId)
 }

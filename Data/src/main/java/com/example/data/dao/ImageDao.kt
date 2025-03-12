@@ -1,7 +1,6 @@
 package com.example.data.dao
 
 import androidx.room.Dao
-import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -34,6 +33,6 @@ interface ImageDao {
     @Query("DELETE FROM ImageEntity WHERE id = :imageId")
     suspend fun deleteById(imageId: Int)
 
-    @Delete
-    suspend fun delete(user: ImageEntity)
+    @Query("DELETE FROM ImageEntity WHERE user_id = :userId")
+    suspend fun deleteAllByUserId(userId: Int)
 }
