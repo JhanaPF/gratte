@@ -7,13 +7,28 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.ByteArrayOutputStream
 import javax.inject.Inject
+import kotlin.math.min
 
 class ConvertBitmapToBase64UseCase @Inject constructor() {
     suspend operator fun invoke(bitmap: Bitmap): String =
         // Heavy computation going on here i need the default dispatcher
         withContext(Dispatchers.Default) {
-            bitmapToBase64(bitmap)
+            // I unfortunately need to scale the bitmap to avoid "Row too big to fit into CursorWindow"..
+            val scaledBitmap = scaleBitmap(bitmap, maxWidth = 1200, maxHeight = 1200)
+
+            bitmapToBase64(scaledBitmap)
         }
+}
+
+fun scaleBitmap(bitmap: Bitmap, maxWidth: Int, maxHeight: Int): Bitmap {
+    val width = bitmap.width
+    val height = bitmap.height
+    val scale = min(maxWidth.toFloat() / width, maxHeight.toFloat() / height)
+    return if (scale < 1f) {
+        Bitmap.createScaledBitmap(bitmap, (width * scale).toInt(), (height * scale).toInt(), true)
+    } else {
+        bitmap
+    }
 }
 
 fun bitmapToBase64(bitmap: Bitmap): String {

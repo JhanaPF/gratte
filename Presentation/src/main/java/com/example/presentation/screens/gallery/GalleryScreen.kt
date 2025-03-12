@@ -47,14 +47,11 @@ fun GalleryScreen(
                 }
             }
     }
-    Box(
-        modifier = Modifier
-            .fillMaxSize(),
-    ) {
+    Column(modifier = Modifier.fillMaxSize()) {
         Text(
             modifier = Modifier
                 .padding(top = 16.dp, bottom = 24.dp)
-                .align(Alignment.TopCenter),
+                .align(Alignment.CenterHorizontally),
             text = stringResource(R.string.gallery_title),
             color = MaterialTheme.colorScheme.primary,
             fontFamily = retro,
@@ -62,6 +59,7 @@ fun GalleryScreen(
         )
 
         GalleryScreenContent(
+            modifier = Modifier.align(Alignment.CenterHorizontally),
             state = state,
             onImageClick = viewModel::onImageClick,
         )
@@ -70,6 +68,7 @@ fun GalleryScreen(
 
 @Composable
 fun GalleryScreenContent(
+    modifier: Modifier = Modifier,
     state: GalleryUiState,
     onImageClick: () -> Unit,
 ) {
@@ -77,6 +76,7 @@ fun GalleryScreenContent(
         GalleryUiState.Loading -> LoadingIndicator()
         is GalleryUiState.Error -> ErrorView(message = state.message)
         is GalleryUiState.Success -> ImageGrid(
+            modifier = modifier,
             state = state,
             onImageClick = onImageClick,
         )
@@ -85,11 +85,12 @@ fun GalleryScreenContent(
 
 @Composable
 fun ImageGrid(
+    modifier: Modifier = Modifier,
     state: GalleryUiState.Success,
     onImageClick: () -> Unit,
 ) {
     LazyColumn(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
             .padding(horizontal = 8.dp),
         verticalArrangement = Arrangement.spacedBy(24.dp),
