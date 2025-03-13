@@ -7,8 +7,8 @@ class DeleteAllImagesUseCase @Inject constructor(
     private val imageRepository: ImageRepository,
     private val getUserIdUseCase: GetUserIdUseCase,
 ) {
-    suspend operator fun invoke(): Result<Unit> = runCatching {
+    suspend operator fun invoke(): Result<Unit> {
         val userId = getUserIdUseCase()
-        imageRepository.deleteAllImagesByUserId(userId)
+        return imageRepository.deleteAllImagesByUserId(userId)
     }
 }

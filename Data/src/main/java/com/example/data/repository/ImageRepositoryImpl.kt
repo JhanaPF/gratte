@@ -1,5 +1,6 @@
 package com.example.data.repository
 
+import com.example.common.extensions.suspendRunCatching
 import com.example.data.data_source.local.ImageLocalDataSource
 import com.example.domain.model.ImageModel
 import com.example.domain.repository.ImageRepository
@@ -27,9 +28,16 @@ class ImageRepositoryImpl @Inject constructor(
     override suspend fun updateScore(imageId: Int, score: Int) =
         imageLocalDataSource.updateScore(imageId, score)
 
-    override suspend fun deleteAllImagesByUserId(userId: Int) =
+    override suspend fun deleteAllImagesByUserId(userId: Int) = suspendRunCatching {
         imageLocalDataSource.deleteAllImagesByUserId(userId)
+    }
 
-    override suspend fun getImageById(pictureId: Int): ImageModel? =
-        imageLocalDataSource.getImageById(pictureId)
+    override suspend fun deleteImageById(imageId: Int) = suspendRunCatching {
+        imageLocalDataSource.deleteImageById(imageId)
+    }
+
+    override suspend fun getImageById(pictureId: Int): Result<ImageModel?> =
+        suspendRunCatching {
+            imageLocalDataSource.getImageById(pictureId)
+        }
 }

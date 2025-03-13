@@ -2,6 +2,7 @@ package com.example.presentation.screens.gallery
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.domain.model.ImageModel
 import com.example.domain.use_cases.ConvertBase64ToBitmapUseCase
 import com.example.domain.use_cases.DeleteAllImagesUseCase
 import com.example.domain.use_cases.ObserveUserPicturesUseCase
@@ -27,17 +28,11 @@ class GalleryViewModel @Inject constructor(
     val state: StateFlow<GalleryUiState> =
         observeUserPicturesUseCase()
             .distinctUntilChanged()
-            .map { pictures ->
-                pictures.fold(
+            .map { picturesResult ->
+                picturesResult.fold(
                     onSuccess = { images ->
                         val pictureList = images.mapNotNull { imageModel ->
-                            imageModel.id?.let { id ->
-                                PictureItem(
-                                    id = id,
-                                    imageArray = convertBase64ToByteArrayUseCase(imageModel.image),
-                                    score = imageModel.score ?: 0,
-                                )
-                            }
+                            mapImageModelToPictureItem(imageModel)
                         }.toPersistentList()
                         if (pictureList.isEmpty()) {
                             GalleryUiState.Empty
@@ -55,6 +50,19 @@ class GalleryViewModel @Inject constructor(
                 started = SharingStarted.WhileSubscribed(5_000L),
                 initialValue = GalleryUiState.Loading,
             )
+
+    private suspend fun mapImageModelToPictureItem(imageModel: ImageModel): PictureItem? {
+        val id = imageModel.id ?: return null
+        return convertBase64ToByteArrayUseCase(imageModel.image)
+            .getOrNull()
+            ?.let { imageArray ->
+                PictureItem(
+                    id = id,
+                    imageArray = imageArray,
+                    score = imageModel.score ?: 0,
+                )
+            }
+    }
 
     fun onDeleteClick() {
         viewModelScope.launch {

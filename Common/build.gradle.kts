@@ -1,13 +1,10 @@
 plugins {
     alias(libs.plugins.android.librairy)
     alias(libs.plugins.kotlin.android)
-    id("kotlin-kapt")
-    id("com.google.dagger.hilt.android")
-    id("com.google.devtools.ksp")
 }
 
 android {
-    namespace = "com.example.data"
+    namespace = "com.example.common"
     compileSdk = 35
 
     defaultConfig {
@@ -36,23 +33,11 @@ android {
 }
 
 dependencies {
-    implementation(project(":Domain"))
-    implementation(project(":Common"))
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-    implementation(libs.gpuimage)
-    implementation(libs.hilt.android)
-    implementation(libs.hilt.compose)
-    implementation(libs.androidx.room.runtime)
-    implementation(libs.androidx.room.ktx)
-    kapt(libs.hilt.android.compiler)
-    ksp(libs.androidx.room.compiler)
-}
-
-kapt {
-    correctErrorTypes = true
 }

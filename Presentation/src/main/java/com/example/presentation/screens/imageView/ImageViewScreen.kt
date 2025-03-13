@@ -9,9 +9,11 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -22,6 +24,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.presentation.R
 import com.example.presentation.composables.ErrorView
 import com.example.presentation.composables.ImageItem
+import com.example.presentation.utils.randomFlashyColor
 
 @Composable
 fun ImageViewScreen(
@@ -29,6 +32,16 @@ fun ImageViewScreen(
     navigateBack: () -> Unit,
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
+
+    LaunchedEffect(Unit) {
+        viewModel
+            .events
+            .collect { event ->
+                when (event) {
+                    ImageViewEvents.NavigateBack -> navigateBack()
+                }
+            }
+    }
 
     GalleryScreenContent(
         state = state,
@@ -64,7 +77,7 @@ fun GalleryScreenContent(
 }
 
 // If you wonder why i didn't reused the RetroBitmapWithLoader and make it evolve,
-// it's because the GPUI filter return a bitmap by default..
+// it's because the GPUI filters return a bitmap by default..
 // so to avoid a lot of other conversions i just created a new composable
 @Composable
 fun ImageView(
@@ -74,7 +87,9 @@ fun ImageView(
     onCloseClick: () -> Unit,
     onDeleteClicked: () -> Unit,
 ) {
-    val borderColor by remember { mutableStateOf(Color.White) }
+    var borderColor by remember { mutableStateOf(Color.White) }
+
+    borderColor = randomFlashyColor()
 
     Box(
         modifier = modifier

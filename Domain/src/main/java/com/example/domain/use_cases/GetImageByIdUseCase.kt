@@ -7,6 +7,6 @@ import javax.inject.Inject
 class GetImageByIdUseCase @Inject constructor(
     private val imageRepository: ImageRepository,
 ) {
-    suspend operator fun invoke(imageId: Int): ImageModel? =
+    suspend operator fun invoke(imageId: Int): Result<ImageModel?> =
         imageRepository.getImageById(imageId)
 }
