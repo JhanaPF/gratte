@@ -13,7 +13,7 @@ class AssetsMockInterceptorImpl(private val context: Context) : Interceptor {
         val path = request.url.encodedPath
 
         val fileName = when {
-            path.contains("highscores") -> "highs_cores.json"
+            path.contains("highscores") -> "high_scores.json"
             else -> null
         }
 

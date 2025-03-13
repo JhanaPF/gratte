@@ -11,7 +11,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.presentation.screens.HomeScreen
+import com.example.presentation.screens.home.HomeScreen
 import com.example.presentation.screens.gallery.GalleryScreen
 import com.example.presentation.screens.imagePicker.ImagePickerScreen
 import com.example.presentation.screens.imageView.ImageViewScreen

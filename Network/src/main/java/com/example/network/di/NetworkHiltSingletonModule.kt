@@ -1,7 +1,6 @@
 package com.example.network.di
 
 import android.content.Context
-import com.example.network.di.qualifier.RetrofitCoroutineQualifier
 import com.example.network.okhttp.AssetsMockInterceptorImpl
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module
@@ -19,12 +18,11 @@ import retrofit2.Retrofit
 object NetworkHiltSingletonModule {
 
     @Provides
-    @RetrofitCoroutineQualifier
-    fun provideCoroutineRetrofit(
-        @RetrofitCoroutineQualifier retrofitBuilder: Retrofit.Builder,
+    fun provideRetrofit(
         okHttpClient: OkHttpClient,
         json: Json,
-    ): Retrofit = retrofitBuilder
+    ): Retrofit = Retrofit.Builder()
+        .baseUrl("https://pixelise.it/")
         .client(okHttpClient)
         .addConverterFactory(json.asConverterFactory("application/json".toMediaType()))
         .build()

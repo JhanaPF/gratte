@@ -2,6 +2,8 @@ package com.example.data.repository
 
 import com.example.common.extensions.suspendRunCatching
 import com.example.data.data_source.local.ImageLocalDataSource
+import com.example.data.data_source.remote.ImageRemoteDataSourceImpl
+import com.example.domain.model.HighScoresModel
 import com.example.domain.model.ImageModel
 import com.example.domain.repository.ImageRepository
 import kotlinx.coroutines.flow.catch
@@ -10,6 +12,7 @@ import javax.inject.Inject
 
 class ImageRepositoryImpl @Inject constructor(
     private val imageLocalDataSource: ImageLocalDataSource,
+    private val imageRemoteDataSource: ImageRemoteDataSourceImpl,
 ) : ImageRepository {
     override fun observeImagesByUserId(userId: Int) =
         imageLocalDataSource.observeImagesByUserId(userId)
@@ -32,12 +35,18 @@ class ImageRepositoryImpl @Inject constructor(
         imageLocalDataSource.deleteAllImagesByUserId(userId)
     }
 
+    override suspend fun getHighScores(): Result<List<HighScoresModel>> = suspendRunCatching {
+        imageRemoteDataSource.getHighScores()
+    }.onFailure {
+        println("$$ ERROR:")
+        it.printStackTrace()
+    }
+
     override suspend fun deleteImageById(imageId: Int) = suspendRunCatching {
         imageLocalDataSource.deleteImageById(imageId)
     }
 
-    override suspend fun getImageById(pictureId: Int): Result<ImageModel?> =
-        suspendRunCatching {
-            imageLocalDataSource.getImageById(pictureId)
-        }
+    override suspend fun getImageById(pictureId: Int): Result<ImageModel?> = suspendRunCatching {
+        imageLocalDataSource.getImageById(pictureId)
+    }
 }
