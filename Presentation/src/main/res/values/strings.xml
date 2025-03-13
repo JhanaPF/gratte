@@ -7,6 +7,8 @@
     <string name="first_row">RANK</string>
     <string name="second_row">SCORE</string>
     <string name="third_row">NAME</string>
+    <string name="personnal_score_label">Your Score:</string>
+    <string name="no_personal_score">Add a picture first !</string>
 
     // Image Picker
     <string name="picker_title">Pixelate It!</string>
@@ -21,6 +23,5 @@
     <string name="empty_text">Start by adding a picture !</string>
     <string name="delete_all_images_title">Delete all pictures ?</string>
     <string name="delete_all_images_text">You won\'t get a second chance</string>
-
 
 </resources>

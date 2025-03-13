@@ -37,5 +37,5 @@ interface ImageDao {
     suspend fun deleteAllByUserId(userId: String)
 
     @Query("SELECT * FROM ImageEntity WHERE user_id = :userId ORDER BY score DESC LIMIT 1")
-    fun getPersonalBestScore(userId: String): ImageEntity
+    fun observePersonalBestScore(userId: String): Flow<ImageEntity?>
 }

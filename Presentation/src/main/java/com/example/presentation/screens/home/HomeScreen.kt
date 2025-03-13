@@ -24,6 +24,7 @@ import com.example.presentation.composables.ErrorView
 import com.example.presentation.composables.LottieLoader
 import com.example.presentation.composables.ScoreRow
 import com.example.presentation.theme.PixeliseItTheme
+import com.example.presentation.theme.Red
 import com.example.presentation.theme.retro
 import com.example.presentation.utils.colorForRank
 import com.example.presentation.utils.randomFlashyColor
@@ -120,7 +121,7 @@ fun Success(
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)
                 .padding(bottom = 24.dp),
-            text = "Your Score:",
+            text = stringResource(R.string.personnal_score_label),
             color = MaterialTheme.colorScheme.primary,
             fontFamily = retro,
             fontSize = 24.sp,
@@ -130,6 +131,15 @@ fun Success(
                 modifier = Modifier
                     .padding(bottom = 24.dp),
                 personalBest = state.personalBest,
+            )
+        } else {
+            Text(
+                modifier = Modifier
+                    .align(Alignment.CenterHorizontally),
+                text = stringResource(R.string.no_personal_score),
+                color = Red,
+                fontFamily = retro,
+                fontSize = 14.sp,
             )
         }
     }

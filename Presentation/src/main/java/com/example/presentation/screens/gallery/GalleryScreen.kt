@@ -229,6 +229,7 @@ fun DeleteConfirmDialog(
             TextButton(
                 onClick = {
                     onConfirmation()
+                    onDismissRequest()
                 },
             ) {
                 Text("Confirm")

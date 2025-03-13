@@ -22,11 +22,13 @@ class ImageLocalDataSourceImpl @Inject constructor(
     override fun observeImagesByUserId(userId: String): Flow<List<ImageModel>> =
         imageDao.observeByUserId(userId).map { it.toDomain() ?: emptyList() }
 
-    override suspend fun getPersonalBestScore(userId: String): ImageModel? =
-        imageDao.getPersonalBestScore(userId).toDomain()
-
     override suspend fun insertImages(images: List<ImageModel>) =
         imageDao.insertAll(images.toEntity())
+
+    override suspend fun observePersonalScoreBestScore(userId: String): Flow<ImageModel?> =
+        imageDao.observePersonalBestScore(userId).map {
+            it?.toDomain()
+        }
 
     override suspend fun insertImage(image: ImageModel) = imageDao.insert(image.toEntity())
 
@@ -35,5 +37,6 @@ class ImageLocalDataSourceImpl @Inject constructor(
 
     override suspend fun deleteImageById(imageId: Int) = imageDao.deleteById(imageId)
 
-    override suspend fun deleteAllImagesByUserId(userId: String) = imageDao.deleteAllByUserId(userId)
+    override suspend fun deleteAllImagesByUserId(userId: String) =
+        imageDao.deleteAllByUserId(userId)
 }
