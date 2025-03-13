@@ -22,6 +22,9 @@ class ImageLocalDataSourceImpl @Inject constructor(
     override fun observeImagesByUserId(userId: String): Flow<List<ImageModel>> =
         imageDao.observeByUserId(userId).map { it.toDomain() ?: emptyList() }
 
+    override suspend fun getPersonalBestScore(userId: String): ImageModel? =
+        imageDao.getPersonalBestScore(userId).toDomain()
+
     override suspend fun insertImages(images: List<ImageModel>) =
         imageDao.insertAll(images.toEntity())
 

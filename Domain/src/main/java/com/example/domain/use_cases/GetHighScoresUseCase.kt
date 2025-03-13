@@ -9,7 +9,4 @@ class GetHighScoresUseCase @Inject constructor(
 ) {
     suspend operator fun invoke(): Result<List<HighScoresModel>> =
         highScoresRepository.getHighScores()
-            .map {
-                it
-            }
 }

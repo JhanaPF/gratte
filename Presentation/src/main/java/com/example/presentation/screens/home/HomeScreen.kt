@@ -1,8 +1,10 @@
 package com.example.presentation.screens.home
 
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.MaterialTheme
@@ -24,6 +26,7 @@ import com.example.presentation.composables.ScoreRow
 import com.example.presentation.theme.PixeliseItTheme
 import com.example.presentation.theme.retro
 import com.example.presentation.utils.colorForRank
+import com.example.presentation.utils.randomFlashyColor
 
 @Composable
 fun HomeScreen(
@@ -48,7 +51,6 @@ fun HomeContent(
             .padding(horizontal = 24.dp)
             .padding(
                 top = 16.dp,
-                bottom = 128.dp,
             ),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
@@ -77,7 +79,7 @@ fun HomeContent(
             }
 
             is HomeScreenUiState.Success -> {
-                HighScoresList(state = state)
+                Success(state = state)
             }
 
             is HomeScreenUiState.Error -> {
@@ -102,8 +104,63 @@ fun LoadingIndicator(
 }
 
 @Composable
-fun HighScoresList(state: HomeScreenUiState.Success) {
-    LazyColumn {
+fun Success(
+    modifier: Modifier = Modifier,
+    state: HomeScreenUiState.Success,
+) {
+    Column(
+        modifier = modifier,
+    ) {
+        HighScoresList(
+            modifier = Modifier
+                .padding(bottom = 24.dp),
+            highScores = state.highScores,
+        )
+        Text(
+            modifier = Modifier
+                .align(Alignment.CenterHorizontally)
+                .padding(bottom = 24.dp),
+            text = "Your Score:",
+            color = MaterialTheme.colorScheme.primary,
+            fontFamily = retro,
+            fontSize = 24.sp,
+        )
+        if (state.personalBest != null) {
+            PersonalBestScore(
+                modifier = Modifier
+                    .padding(bottom = 24.dp),
+                personalBest = state.personalBest,
+            )
+        }
+    }
+}
+
+@Composable
+fun PersonalBestScore(
+    modifier: Modifier,
+    personalBest: HighScoresItem,
+) {
+    Box(
+        modifier = modifier
+            .wrapContentSize()
+            .padding(horizontal = 16.dp)
+            .border(2.dp, randomFlashyColor()),
+    ) {
+        ScoreRow(
+            rank = personalBest.rank,
+            score = personalBest.score.toString(),
+            name = personalBest.name,
+            color = Color.Green,
+        )
+    }
+}
+
+@Composable
+fun HighScoresList(
+    modifier: Modifier = Modifier,
+    highScores: List<HighScoresItem>,
+) {
+    LazyColumn(modifier = modifier) {
         item {
             ScoreRow(
                 rank = stringResource(R.string.first_row),
@@ -112,7 +169,7 @@ fun HighScoresList(state: HomeScreenUiState.Success) {
                 color = Color.Green,
             )
         }
-        itemsIndexed(state.data) { index, item ->
+        itemsIndexed(highScores) { index, item ->
             ScoreRow(
                 rank = item.rank,
                 score = item.score.toString(),

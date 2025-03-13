@@ -13,4 +13,5 @@ interface ImageLocalDataSource {
     suspend fun deleteImageById(imageId: Int)
     suspend fun deleteAllImagesByUserId(userId: String)
     suspend fun insertImages(images: List<ImageModel>)
+    suspend fun getPersonalBestScore(userId: String): ImageModel?
 }

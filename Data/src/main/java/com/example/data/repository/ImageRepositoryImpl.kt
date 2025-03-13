@@ -20,6 +20,10 @@ class ImageRepositoryImpl @Inject constructor(
                 emit(Result.failure(error))
             }
 
+    override suspend fun getPersonalBestScore(userId: String): Result<ImageModel?> = suspendRunCatching {
+        imageLocalDataSource.getPersonalBestScore(userId)
+    }
+
     override suspend fun getAllImages() = imageLocalDataSource.getAllImages()
     override suspend fun getImagesByUserId(userId: Int) =
         imageLocalDataSource.getImagesByUserId(userId)

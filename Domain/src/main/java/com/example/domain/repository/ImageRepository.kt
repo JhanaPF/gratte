@@ -12,4 +12,5 @@ interface ImageRepository {
     suspend fun deleteAllImagesByUserId(userId: String): Result<Unit>
     suspend fun getImageById(pictureId: Int): Result<ImageModel?>
     suspend fun deleteImageById(imageId: Int): Result<Unit>
+    suspend fun getPersonalBestScore(userId: String): Result<ImageModel?>
 }
