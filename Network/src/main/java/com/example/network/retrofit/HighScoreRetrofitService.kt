@@ -8,7 +8,7 @@ import retrofit2.http.Headers
 
 private const val HIGHSCORES_URL = "/highscores"
 
-interface ImageRetrofitService {
+interface HighScoreRetrofitService {
 
     @GET(HIGHSCORES_URL)
     @Headers(Constants.HEADER_JSON)

@@ -4,7 +4,7 @@ import kotlinx.serialization.Serializable
 interface AppRoute {
 
     @Serializable
-    object Home : AppRoute
+    data object Home : AppRoute
 
     @Serializable
     object ImagePicker : AppRoute

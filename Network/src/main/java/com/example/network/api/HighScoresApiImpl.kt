@@ -3,15 +3,15 @@ package com.example.network.api
 import com.example.network.exception.createService
 import com.example.network.model.ResponseApiModel
 import com.example.network.model.image.HighScoresApiModel
-import com.example.network.retrofit.ImageRetrofitService
+import com.example.network.retrofit.HighScoreRetrofitService
 import retrofit2.Retrofit
 import javax.inject.Inject
 
-class ImageApiImpl @Inject constructor(
+class HighScoresApiImpl @Inject constructor(
     retrofit: Retrofit,
-) : ImageApi {
+) : HighScoresApi {
 
-    private val service: ImageRetrofitService by retrofit.createService()
+    private val service: HighScoreRetrofitService by retrofit.createService()
 
     override suspend fun getHighScores(): ResponseApiModel<List<HighScoresApiModel>> =
         service.getHighScores()

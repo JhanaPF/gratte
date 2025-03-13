@@ -25,6 +25,7 @@ class HomeScreenViewModel @Inject constructor(
                     _state.value = HomeScreenUiState.Success(
                         it.map { highScore ->
                             HighScoresItem(
+                                rank = highScore.rank,
                                 name = highScore.userid,
                                 pictureUrl = highScore.pictureUrl,
                                 score = highScore.score,

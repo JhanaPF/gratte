@@ -17,8 +17,8 @@ import com.example.presentation.theme.retro
 fun ScoreRow(
     modifier: Modifier = Modifier,
     color: Color,
-    rank: Int,
-    score: Int,
+    rank: String,
+    score: String,
     name: String,
 ) {
     Row(
@@ -31,13 +31,13 @@ fun ScoreRow(
         Text(
             color = color,
             fontFamily = retro,
-            text = rank.toString(),
+            text = rank,
             maxLines = 1,
         )
         Text(
             color = color,
             fontFamily = retro,
-            text = score.toString(),
+            text = score,
             maxLines = 1,
         )
         Text(
@@ -53,8 +53,8 @@ fun ScoreRow(
 @Composable
 fun ScoreRowPreview() {
     ScoreRow(
-        rank = 1,
-        score = 1000,
+        rank = "1",
+        score = "1000",
         name = "John Doe",
         color = Color.Red,
     )

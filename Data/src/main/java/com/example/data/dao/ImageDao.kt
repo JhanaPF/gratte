@@ -19,7 +19,7 @@ interface ImageDao {
     suspend fun getByUserId(userId: Int): List<ImageEntity>
 
     @Query("SELECT * FROM ImageEntity WHERE user_id = :userId")
-    fun observeByUserId(userId: Int): Flow<List<ImageEntity>>
+    fun observeByUserId(userId: String): Flow<List<ImageEntity>>
 
     @Insert
     suspend fun insertAll(image: List<ImageEntity>)
@@ -34,5 +34,5 @@ interface ImageDao {
     suspend fun deleteById(imageId: Int)
 
     @Query("DELETE FROM ImageEntity WHERE user_id = :userId")
-    suspend fun deleteAllByUserId(userId: Int)
+    suspend fun deleteAllByUserId(userId: String)
 }

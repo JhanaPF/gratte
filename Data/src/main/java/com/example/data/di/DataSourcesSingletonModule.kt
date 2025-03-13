@@ -1,10 +1,14 @@
 package com.example.data.di
 
+import com.example.data.data_source.local.HighScoresDataSourceImpl
+import com.example.data.data_source.local.HighScoresLocalDataSource
 import com.example.data.data_source.local.ImageLocalDataSource
 import com.example.data.data_source.local.ImageLocalDataSourceImpl
-import com.example.data.data_source.remote.ImageRemoteDataSource
-import com.example.data.data_source.remote.ImageRemoteDataSourceImpl
+import com.example.data.data_source.remote.HighScoresRemoteDataSource
+import com.example.data.data_source.remote.HighScoresRemoteDataSourceImpl
+import com.example.data.repository.HighScoresRepositoryImpl
 import com.example.data.repository.ImageRepositoryImpl
+import com.example.domain.repository.HighScoresRepository
 import com.example.domain.repository.ImageRepository
 import dagger.Binds
 import dagger.Module
@@ -21,8 +25,15 @@ internal interface DataSourcesSingletonModule {
     fun bindImageRepository(impl: ImageRepositoryImpl): ImageRepository
 
     @Binds
+    @Singleton
+    fun bindHighScoreRepository(impl: HighScoresRepositoryImpl): HighScoresRepository
+
+    @Binds
     fun bindImageLocalDataSource(impl: ImageLocalDataSourceImpl): ImageLocalDataSource
 
     @Binds
-    fun bindImageRemoteDataSource(impl: ImageRemoteDataSourceImpl): ImageRemoteDataSource
+    fun bindHighScoresRemoteDataSource(impl: HighScoresRemoteDataSourceImpl): HighScoresRemoteDataSource
+
+    @Binds
+    fun bindHighScoresLocalDataSource(impl: HighScoresDataSourceImpl): HighScoresLocalDataSource
 }

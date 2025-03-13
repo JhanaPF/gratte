@@ -33,9 +33,7 @@ fun AppNavHost(
         startDestination = startDestination,
     ) {
         composable<AppRoute.Home> {
-            HomeScreen(
-                navigateToImagePicker = { navController.navigate(AppRoute.ImagePicker) },
-            )
+            HomeScreen()
         }
         composable<AppRoute.ImagePicker> {
             ImagePickerScreen()

@@ -2,12 +2,10 @@ package com.example.presentation.screens.home
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -25,50 +23,50 @@ import com.example.presentation.composables.LottieLoader
 import com.example.presentation.composables.ScoreRow
 import com.example.presentation.theme.PixeliseItTheme
 import com.example.presentation.theme.retro
+import com.example.presentation.utils.colorForRank
 
 @Composable
 fun HomeScreen(
-    navigateToImagePicker: () -> Unit,
     viewModel: HomeScreenViewModel = hiltViewModel(),
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
 
     PixeliseItTheme {
-        Scaffold { innerPadding ->
-            HomeContent(
-                state = state,
-                navigateToImagePicker = navigateToImagePicker,
-                modifier = Modifier.padding(innerPadding),
-            )
-        }
+        HomeContent(
+            state = state,
+        )
     }
 }
 
 @Composable
 fun HomeContent(
     state: HomeScreenUiState,
-    navigateToImagePicker: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(
-        modifier = Modifier
+        modifier = modifier
             .padding(horizontal = 24.dp)
-            .padding(bottom = 128.dp),
+            .padding(
+                top = 16.dp,
+                bottom = 128.dp,
+            ),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Text(
-            modifier = Modifier.align(Alignment.CenterHorizontally),
+            modifier = Modifier
+                .align(Alignment.CenterHorizontally)
+                .padding(bottom = 46.dp),
             text = stringResource(id = R.string.app_name),
             color = MaterialTheme.colorScheme.primary,
             fontFamily = retro,
             fontSize = 24.sp,
         )
-        Spacer(modifier = Modifier.padding(24.dp))
         Text(
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)
-                .padding(bottom = 24.dp),
-            text = stringResource(id = R.string.home_title),
+                .padding(bottom = 46.dp),
+            text = stringResource(id = R.string.home_subtitle),
+            color = MaterialTheme.colorScheme.primary,
             fontFamily = retro,
             fontSize = 24.sp,
         )
@@ -106,12 +104,20 @@ fun LoadingIndicator(
 @Composable
 fun HighScoresList(state: HomeScreenUiState.Success) {
     LazyColumn {
-        items(state.data) { item ->
+        item {
             ScoreRow(
-                rank = 1,
-                score = item.score,
+                rank = stringResource(R.string.first_row),
+                score = stringResource(R.string.second_row),
+                name = stringResource(R.string.third_row),
+                color = Color.Green,
+            )
+        }
+        itemsIndexed(state.data) { index, item ->
+            ScoreRow(
+                rank = item.rank,
+                score = item.score.toString(),
                 name = item.name,
-                color = Color.Red,
+                color = colorForRank(index),
             )
         }
     }

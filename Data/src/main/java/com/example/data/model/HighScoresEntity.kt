@@ -3,11 +3,13 @@ package com.example.data.model
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.util.UUID
 
 @Entity
-data class ImageEntity(
-    @PrimaryKey(autoGenerate = true) val id: Int? = 0,
+data class HighScoresEntity(
+    @PrimaryKey val id: String = UUID.randomUUID().toString(),
     @ColumnInfo(name = "user_id") val userId: String?,
-    @ColumnInfo(name = "image_64") val image64: String?,
+    @ColumnInfo(name = "rank") val rank: String?,
+    @ColumnInfo(name = "pictureUrl") val pictureUrl: String?,
     @ColumnInfo(name = "score") val score: Int?,
 )

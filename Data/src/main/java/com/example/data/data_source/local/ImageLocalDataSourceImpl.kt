@@ -19,7 +19,7 @@ class ImageLocalDataSourceImpl @Inject constructor(
     override suspend fun getImagesByUserId(userId: Int): List<ImageModel> =
         imageDao.getByUserId(userId).toDomain() ?: emptyList()
 
-    override fun observeImagesByUserId(userId: Int): Flow<List<ImageModel>> =
+    override fun observeImagesByUserId(userId: String): Flow<List<ImageModel>> =
         imageDao.observeByUserId(userId).map { it.toDomain() ?: emptyList() }
 
     override suspend fun insertImages(images: List<ImageModel>) =
@@ -32,5 +32,5 @@ class ImageLocalDataSourceImpl @Inject constructor(
 
     override suspend fun deleteImageById(imageId: Int) = imageDao.deleteById(imageId)
 
-    override suspend fun deleteAllImagesByUserId(userId: Int) = imageDao.deleteAllByUserId(userId)
+    override suspend fun deleteAllImagesByUserId(userId: String) = imageDao.deleteAllByUserId(userId)
 }

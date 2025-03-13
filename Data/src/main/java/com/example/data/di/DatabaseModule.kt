@@ -3,6 +3,7 @@ package com.example.data.di
 import android.content.Context
 import androidx.room.Room
 import com.example.data.AppDatabase
+import com.example.data.dao.HighScoresDao
 import com.example.data.dao.ImageDao
 import dagger.Module
 import dagger.Provides
@@ -25,5 +26,8 @@ internal object DatabaseModule {
     ).build()
 
     @Provides
-    fun providesUserDao(database: AppDatabase): ImageDao = database.imageDao()
+    fun providesImageDao(database: AppDatabase): ImageDao = database.imageDao()
+
+    @Provides
+    fun providesHighScoreDao(database: AppDatabase): HighScoresDao = database.highScoresDao()
 }

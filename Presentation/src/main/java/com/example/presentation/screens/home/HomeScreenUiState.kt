@@ -7,7 +7,8 @@ interface HomeScreenUiState {
 }
 
 data class HighScoresItem(
+    val rank: String,
     val name: String,
-    val pictureUrl: String,
+    val pictureUrl: String?,
     val score: Int,
 )
