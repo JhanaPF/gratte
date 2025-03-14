@@ -11,19 +11,11 @@ import javax.inject.Inject
 class ImageLocalDataSourceImpl @Inject constructor(
     private val imageDao: ImageDao,
 ) : ImageLocalDataSource {
-    override suspend fun getAllImages(): List<ImageModel> =
-        imageDao.getAll().toDomain() ?: emptyList()
 
     override suspend fun getImageById(id: Int): ImageModel? = imageDao.getById(id).toDomain()
 
-    override suspend fun getImagesByUserId(userId: Int): List<ImageModel> =
-        imageDao.getByUserId(userId).toDomain() ?: emptyList()
-
     override fun observeImagesByUserId(userId: String): Flow<List<ImageModel>> =
         imageDao.observeByUserId(userId).map { it.toDomain() ?: emptyList() }
-
-    override suspend fun insertImages(images: List<ImageModel>) =
-        imageDao.insertAll(images.toEntity())
 
     override suspend fun observePersonalScoreBestScore(userId: String): Flow<ImageModel?> =
         imageDao.observePersonalBestScore(userId).map {

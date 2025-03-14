@@ -8,11 +8,14 @@ import com.example.domain.use_cases.ProcessImageUseCase
 import com.example.domain.use_cases.SendUserPictureUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -35,6 +38,9 @@ class ImagePickerViewModel @Inject constructor(
         MutableStateFlow(false)
 
     private val filterParamsFlow = MutableStateFlow(FilterParameters())
+
+    private val _events: Channel<ImagePickerEvents> = Channel(Channel.BUFFERED)
+    val events: Flow<ImagePickerEvents> = _events.receiveAsFlow()
 
     val state: StateFlow<ImagePickerUiState> =
         combine(
@@ -60,6 +66,9 @@ class ImagePickerViewModel @Inject constructor(
                 sendUserPictureUseCase(image)
                     .onSuccess {
                         originalImageFlow.value = null
+                    }
+                    .onFailure { _ ->
+                        _events.send(ImagePickerEvents.ShowErrorSnackBar)
                     }
                 isLoadingFlow.value = false
             }

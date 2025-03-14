@@ -1,4 +1,4 @@
-package com.example.network.model.image
+package com.example.network.model.high_score
 
 import kotlinx.serialization.Serializable
 

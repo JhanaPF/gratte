@@ -1,0 +1,9 @@
+package com.example.network.api
+
+import com.example.network.model.ResponseApiModel
+import com.example.network.model.image.ImageApiModel
+
+interface ImageApi {
+
+    suspend fun sendImage(image: ImageApiModel): ResponseApiModel<Unit>
+}

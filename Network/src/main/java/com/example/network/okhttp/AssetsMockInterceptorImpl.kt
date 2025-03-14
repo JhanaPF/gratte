@@ -14,6 +14,7 @@ class AssetsMockInterceptorImpl(private val context: Context) : Interceptor {
 
         val fileName = when {
             path.contains("highscores") -> "high_scores.json"
+            path.contains("image") -> "image_send.json"
             else -> null
         }
 

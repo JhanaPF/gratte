@@ -2,7 +2,7 @@ package com.example.network.retrofit
 
 import com.example.network.extenstions.Constants
 import com.example.network.model.ResponseApiModel
-import com.example.network.model.image.HighScoresApiModel
+import com.example.network.model.high_score.HighScoresApiModel
 import retrofit2.http.GET
 import retrofit2.http.Headers
 

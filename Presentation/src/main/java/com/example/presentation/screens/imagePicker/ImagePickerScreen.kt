@@ -15,7 +15,11 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Slider
+import androidx.compose.material3.SnackbarDuration
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -23,6 +27,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -44,6 +49,8 @@ import com.example.presentation.composables.LottieLoader
 import com.example.presentation.composables.RetroNeonButton
 import com.example.presentation.composables.RowSwitch
 import com.example.presentation.theme.retro
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 private const val DEFAULT_PIXEL_SIZE = 1f
 private const val SLIDER_MAX = 50f
@@ -53,9 +60,28 @@ fun ImagePickerScreen(
     viewModel: ImagePickerViewModel = hiltViewModel(),
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
+    val snackBarHostState = remember { SnackbarHostState() }
+    val coroutineScope = rememberCoroutineScope()
+
+    LaunchedEffect(Unit) {
+        viewModel.events
+            .collectLatest { event ->
+                when (event) {
+                    is ImagePickerEvents.ShowErrorSnackBar -> {
+                        coroutineScope.launch {
+                            snackBarHostState.showSnackbar(
+                                message = "Error sending image",
+                                duration = SnackbarDuration.Short,
+                            )
+                        }
+                    }
+                }
+            }
+    }
 
     PixelatedImagePicker(
         state = state,
+        snackbarHostState = snackBarHostState,
         onSelectImage = viewModel::onSelectImage,
         onPixelSizeChanged = viewModel::onPixelSizeChanged,
         onCrtToggled = viewModel::onCrtToggled,
@@ -67,6 +93,7 @@ fun ImagePickerScreen(
 @Composable
 fun PixelatedImagePicker(
     state: ImagePickerUiState,
+    snackbarHostState: SnackbarHostState,
     onSelectImage: (Bitmap) -> Unit,
     onPixelSizeChanged: (Float) -> Unit,
     onCrtToggled: (Boolean) -> Unit,
@@ -93,89 +120,95 @@ fun PixelatedImagePicker(
             )
         }
 
-    Column(
-        modifier = modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(12.dp),
-    ) {
-        Text(
-            modifier = Modifier.padding(top = 16.dp, bottom = 8.dp),
-            text = stringResource(R.string.picker_title),
-            color = MaterialTheme.colorScheme.primary,
-            fontFamily = retro,
-            fontSize = 24.sp,
-        )
+    Scaffold(
+        snackbarHost = {
+            SnackbarHost(hostState = snackbarHostState)
+        },
+    ) { _ ->
+        Column(
+            modifier = modifier.fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(12.dp),
+        ) {
+            Text(
+                modifier = Modifier.padding(top = 16.dp, bottom = 8.dp),
+                text = stringResource(R.string.picker_title),
+                color = MaterialTheme.colorScheme.primary,
+                fontFamily = retro,
+                fontSize = 24.sp,
+            )
 
-        if (state.image != null) {
-            RetroBitmapWithLoader(
-                image = state.image,
-                borderColor = borderColor,
-                isLoading = state.isLoading,
-                onCloseClick = onCloseImageClick,
-            ) {
-                LottieLoader(
+            if (state.image != null) {
+                RetroBitmapWithLoader(
+                    image = state.image,
+                    borderColor = borderColor,
+                    isLoading = state.isLoading,
+                    onCloseClick = onCloseImageClick,
+                ) {
+                    LottieLoader(
+                        modifier = Modifier
+                            .align(Alignment.Center)
+                            .heightIn(max = 400.dp)
+                            .width(400.dp),
+                        resId = R.raw.loader,
+                    )
+                }
+            } else {
+                Image(
+                    painter = painterResource(id = R.drawable.add_image_placeholder),
+                    contentScale = ContentScale.Inside,
+                    contentDescription = "Pixelated Image",
                     modifier = Modifier
-                        .align(Alignment.Center)
-                        .heightIn(max = 400.dp)
-                        .width(400.dp),
-                    resId = R.raw.loader,
+                        .defaultMinSize(minHeight = 400.dp, minWidth = 300.dp)
+                        .padding(vertical = 8.dp)
+                        .border(2.dp, borderColor)
+                        .background(Color.LightGray),
+
                 )
             }
-        } else {
-            Image(
-                painter = painterResource(id = R.drawable.add_image_placeholder),
-                contentScale = ContentScale.Inside,
-                contentDescription = "Pixelated Image",
-                modifier = Modifier
-                    .defaultMinSize(minHeight = 400.dp, minWidth = 300.dp)
-                    .padding(vertical = 8.dp)
-                    .border(2.dp, borderColor)
-                    .background(Color.LightGray),
 
+            RetroNeonButton(
+                text = stringResource(R.string.select_button_label),
+                borderColor = borderColor,
+                size = NeonButtonSize.Small,
+                onClick = { imagePickerLauncher.launch("image/*") },
+            )
+
+            Slider(
+                modifier = Modifier
+                    .width(250.dp),
+                value = pixelSize,
+                onValueChange = {
+                    pixelSize = it
+                    onPixelSizeChanged(it)
+                },
+                valueRange = DEFAULT_PIXEL_SIZE..SLIDER_MAX,
+                steps = 9,
+            )
+
+            Text(
+                text = stringResource(R.string.slider_label, pixelSize.toInt()),
+                fontFamily = retro,
+                fontSize = 14.sp,
+            )
+
+            RowSwitch(
+                modifier = Modifier.width(250.dp),
+                label = stringResource(R.string.row_label),
+                fontFamily = retro,
+                checked = crtEffect,
+            ) {
+                crtEffect = it
+                onCrtToggled(it)
+            }
+
+            RetroNeonButton(
+                modifier = Modifier.padding(bottom = 16.dp),
+                borderColor = borderColor,
+                size = NeonButtonSize.Medium,
+                text = stringResource(R.string.send_button_label),
+                onClick = { onSendImageClicked() },
             )
         }
-
-        RetroNeonButton(
-            text = stringResource(R.string.select_button_label),
-            borderColor = borderColor,
-            size = NeonButtonSize.Small,
-            onClick = { imagePickerLauncher.launch("image/*") },
-        )
-
-        Slider(
-            modifier = Modifier
-                .width(250.dp),
-            value = pixelSize,
-            onValueChange = {
-                pixelSize = it
-                onPixelSizeChanged(it)
-            },
-            valueRange = DEFAULT_PIXEL_SIZE..SLIDER_MAX,
-            steps = 9,
-        )
-
-        Text(
-            text = stringResource(R.string.slider_label, pixelSize.toInt()),
-            fontFamily = retro,
-            fontSize = 14.sp,
-        )
-
-        RowSwitch(
-            modifier = Modifier.width(250.dp),
-            label = stringResource(R.string.row_label),
-            fontFamily = retro,
-            checked = crtEffect,
-        ) {
-            crtEffect = it
-            onCrtToggled(it)
-        }
-
-        RetroNeonButton(
-            modifier = Modifier.padding(bottom = 16.dp),
-            borderColor = borderColor,
-            size = NeonButtonSize.Medium,
-            text = stringResource(R.string.send_button_label),
-            onClick = { onSendImageClicked() },
-        )
     }
 }

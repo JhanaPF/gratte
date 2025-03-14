@@ -15,13 +15,13 @@ class SendUserPictureUseCase @Inject constructor(
     suspend operator fun invoke(image: Bitmap): Result<Unit> = suspendRunCatching {
         val userId = getUserIdUseCase()
         val base64Image = convertBitmapToBase64UseCase(image)
-        imageRepository.insertImage(
+        imageRepository.sendImage(
             ImageModel(
                 userId = userId,
                 image = base64Image,
                 // Since its complicated to do it with mock lets just put a random score here
                 score = Random.nextInt(0, 8000),
             ),
-        )
+        ).getOrThrow()
     }
 }

@@ -9,14 +9,8 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface ImageDao {
-    @Query("SELECT * FROM ImageEntity")
-    suspend fun getAll(): List<ImageEntity>
-
     @Query("SELECT * FROM ImageEntity WHERE id = :id")
     suspend fun getById(id: Int): ImageEntity
-
-    @Query("SELECT * FROM ImageEntity WHERE user_id = :userId")
-    suspend fun getByUserId(userId: Int): List<ImageEntity>
 
     @Query("SELECT * FROM ImageEntity WHERE user_id = :userId")
     fun observeByUserId(userId: String): Flow<List<ImageEntity>>

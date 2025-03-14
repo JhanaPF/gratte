@@ -6,6 +6,8 @@ import com.example.data.data_source.local.ImageLocalDataSource
 import com.example.data.data_source.local.ImageLocalDataSourceImpl
 import com.example.data.data_source.remote.HighScoresRemoteDataSource
 import com.example.data.data_source.remote.HighScoresRemoteDataSourceImpl
+import com.example.data.data_source.remote.ImageRemoteDataSource
+import com.example.data.data_source.remote.ImageRemoteDataSourceImpl
 import com.example.data.repository.HighScoresRepositoryImpl
 import com.example.data.repository.ImageRepositoryImpl
 import com.example.domain.repository.HighScoresRepository
@@ -30,6 +32,9 @@ internal interface DataSourcesSingletonModule {
 
     @Binds
     fun bindImageLocalDataSource(impl: ImageLocalDataSourceImpl): ImageLocalDataSource
+
+    @Binds
+    fun bindImageRemoteDataSource(impl: ImageRemoteDataSourceImpl): ImageRemoteDataSource
 
     @Binds
     fun bindHighScoresRemoteDataSource(impl: HighScoresRemoteDataSourceImpl): HighScoresRemoteDataSource

@@ -2,6 +2,7 @@ package com.example.data.repository
 
 import com.example.common.extensions.suspendRunCatching
 import com.example.data.data_source.local.ImageLocalDataSource
+import com.example.data.data_source.remote.ImageRemoteDataSource
 import com.example.domain.model.ImageModel
 import com.example.domain.repository.ImageRepository
 import kotlinx.coroutines.flow.Flow
@@ -11,6 +12,7 @@ import javax.inject.Inject
 
 class ImageRepositoryImpl @Inject constructor(
     private val imageLocalDataSource: ImageLocalDataSource,
+    private val imageRemoteDataSource: ImageRemoteDataSource,
 ) : ImageRepository {
     override fun observeImagesByUserId(userId: String) =
         imageLocalDataSource.observeImagesByUserId(userId)
@@ -24,11 +26,11 @@ class ImageRepositoryImpl @Inject constructor(
     override suspend fun observePersonalBestScore(userId: String): Flow<ImageModel?> =
         imageLocalDataSource.observePersonalScoreBestScore(userId)
 
-    override suspend fun getAllImages() = imageLocalDataSource.getAllImages()
-    override suspend fun getImagesByUserId(userId: Int) =
-        imageLocalDataSource.getImagesByUserId(userId)
+    override suspend fun sendImage(image: ImageModel) =
+        imageRemoteDataSource.insertImage(image).mapCatching {
+            imageLocalDataSource.insertImage(image)
+        }
 
-    override suspend fun insertImage(image: ImageModel) = imageLocalDataSource.insertImage(image)
     override suspend fun updateScore(imageId: Int, score: Int) =
         imageLocalDataSource.updateScore(imageId, score)
 

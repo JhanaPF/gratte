@@ -5,9 +5,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface ImageRepository {
     fun observeImagesByUserId(userId: String): Flow<Result<List<ImageModel>>>
-    suspend fun getAllImages(): List<ImageModel>
-    suspend fun getImagesByUserId(userId: Int): List<ImageModel>
-    suspend fun insertImage(image: ImageModel)
+    suspend fun sendImage(image: ImageModel): Result<Unit>
     suspend fun updateScore(imageId: Int, score: Int)
     suspend fun deleteAllImagesByUserId(userId: String): Result<Unit>
     suspend fun getImageById(pictureId: Int): Result<ImageModel?>
