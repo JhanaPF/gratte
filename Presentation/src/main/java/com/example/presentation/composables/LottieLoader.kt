@@ -12,8 +12,8 @@ import com.airbnb.lottie.compose.rememberLottieComposition
 
 @Composable
 fun LottieLoader(
-    modifier: Modifier = Modifier,
     @RawRes resId: Int,
+    modifier: Modifier = Modifier,
 ) {
     val composition by
         rememberLottieComposition(LottieCompositionSpec.RawRes(resId))

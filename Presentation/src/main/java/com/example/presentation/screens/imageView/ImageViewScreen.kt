@@ -28,8 +28,8 @@ import com.example.presentation.utils.randomFlashyColor
 
 @Composable
 fun ImageViewScreen(
-    viewModel: ImageViewViewModel = hiltViewModel(),
     navigateBack: () -> Unit,
+    viewModel: ImageViewViewModel = hiltViewModel(),
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
 
@@ -81,11 +81,11 @@ fun GalleryScreenContent(
 // so to avoid a lot of other conversions i just created a new composable
 @Composable
 fun ImageView(
-    modifier: Modifier = Modifier,
     image: ByteArray,
     onImageClicked: () -> Unit,
     onCloseClick: () -> Unit,
     onDeleteClicked: () -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     var borderColor by remember { mutableStateOf(Color.White) }
 

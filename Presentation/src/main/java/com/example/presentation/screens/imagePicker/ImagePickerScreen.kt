@@ -67,11 +67,11 @@ fun ImagePickerScreen(
 @Composable
 fun PixelatedImagePicker(
     state: ImagePickerUiState,
-    modifier: Modifier = Modifier,
     onSelectImage: (Bitmap) -> Unit,
     onPixelSizeChanged: (Float) -> Unit,
     onCrtToggled: (Boolean) -> Unit,
     onSendImageClicked: () -> Unit,
+    modifier: Modifier = Modifier,
     onCloseImageClick: () -> Unit = {},
 ) {
     val context = LocalContext.current

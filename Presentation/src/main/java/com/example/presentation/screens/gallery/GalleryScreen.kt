@@ -48,9 +48,9 @@ import com.example.presentation.utils.randomFlashyColor
 
 @Composable
 fun GalleryScreen(
-    viewModel: GalleryViewModel = hiltViewModel(),
     navigateToImageView: (Int) -> Unit,
     navigateToImagePicker: () -> Unit,
+    viewModel: GalleryViewModel = hiltViewModel(),
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     val openAlertDialog = remember { mutableStateOf(false) }
@@ -75,10 +75,10 @@ fun GalleryScreen(
 
 @Composable
 fun GalleryScreenContent(
-    modifier: Modifier = Modifier,
     state: GalleryUiState,
     onImageClick: (Int) -> Unit,
     onDeleteClick: () -> Unit,
+    modifier: Modifier = Modifier,
     onAddClick: () -> Unit,
 ) {
     Column(modifier = Modifier.fillMaxSize()) {
@@ -144,9 +144,9 @@ fun EmptyView(
 
 @Composable
 fun ImageGrid(
-    modifier: Modifier = Modifier,
     state: GalleryUiState.Success,
     onImageClick: (Int) -> Unit,
+    modifier: Modifier = Modifier,
     onDeleteClick: () -> Unit,
 ) {
     var borderColor by remember { mutableStateOf(Color.White) }
@@ -249,7 +249,7 @@ fun DeleteConfirmDialog(
 
 @Preview(showBackground = true)
 @Composable
-fun GalleryScreenContentEmptyPreview() {
+private fun GalleryScreenContentEmptyPreview() {
     val dummyState = GalleryUiState.Empty
 
     GalleryScreenContent(
@@ -262,7 +262,7 @@ fun GalleryScreenContentEmptyPreview() {
 
 @Preview(showBackground = true)
 @Composable
-fun GalleryScreenContentErrorPreview() {
+private fun GalleryScreenContentErrorPreview() {
     val dummyState = GalleryUiState.Error(Throwable("An error occurred"))
 
     GalleryScreenContent(

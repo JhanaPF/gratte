@@ -59,6 +59,7 @@ dependencies {
     implementation(libs.kotlinx.collections.immutable)
     implementation(libs.coil.compose)
     kapt(libs.hilt.android.compiler)
+    lintChecks(libs.tools.lintCompose)
 }
 
 kapt {

@@ -14,8 +14,8 @@ import com.example.presentation.R
 
 @Composable
 fun ImageItem(
-    modifier: Modifier = Modifier,
     base64Image: ByteArray,
+    modifier: Modifier = Modifier,
 ) {
     val context = LocalContext.current
 

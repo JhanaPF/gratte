@@ -12,6 +12,7 @@ import com.example.data.model.ImageEntity
         ImageEntity::class,
         HighScoresEntity::class,
     ],
+    exportSchema = false,
     version = 1,
 )
 abstract class AppDatabase : RoomDatabase() {

@@ -22,8 +22,8 @@ import com.example.presentation.theme.retro
 
 @Composable
 fun RetroNeonButton(
-    modifier: Modifier = Modifier,
     text: String,
+    modifier: Modifier = Modifier,
     size: NeonButtonSize = NeonButtonSize.Medium,
     borderColor: Color = NeonPink,
     fontFamily: FontFamily = retro,

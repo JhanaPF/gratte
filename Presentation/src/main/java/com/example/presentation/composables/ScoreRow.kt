@@ -15,11 +15,11 @@ import com.example.presentation.theme.retro
 
 @Composable
 fun ScoreRow(
-    modifier: Modifier = Modifier,
     color: Color,
     rank: String,
     score: String,
     name: String,
+    modifier: Modifier = Modifier,
 ) {
     Row(
         modifier = modifier
@@ -51,7 +51,7 @@ fun ScoreRow(
 
 @Preview
 @Composable
-fun ScoreRowPreview() {
+private fun ScoreRowPreview() {
     ScoreRow(
         rank = "1",
         score = "1000",

@@ -28,6 +28,7 @@ import com.example.presentation.theme.Red
 import com.example.presentation.theme.retro
 import com.example.presentation.utils.colorForRank
 import com.example.presentation.utils.randomFlashyColor
+import kotlinx.collections.immutable.PersistentList
 
 @Composable
 fun HomeScreen(
@@ -106,8 +107,8 @@ fun LoadingIndicator(
 
 @Composable
 fun Success(
-    modifier: Modifier = Modifier,
     state: HomeScreenUiState.Success,
+    modifier: Modifier = Modifier,
 ) {
     Column(
         modifier = modifier,
@@ -147,8 +148,8 @@ fun Success(
 
 @Composable
 fun PersonalBestScore(
-    modifier: Modifier,
     personalBest: HighScoresItem,
+    modifier: Modifier = Modifier,
 ) {
     Box(
         modifier = modifier
@@ -167,8 +168,8 @@ fun PersonalBestScore(
 
 @Composable
 fun HighScoresList(
+    highScores: PersistentList<HighScoresItem>,
     modifier: Modifier = Modifier,
-    highScores: List<HighScoresItem>,
 ) {
     LazyColumn(modifier = modifier) {
         item {

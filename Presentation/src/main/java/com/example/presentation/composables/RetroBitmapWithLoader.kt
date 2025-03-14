@@ -24,9 +24,9 @@ import com.example.presentation.R
 
 @Composable
 fun RetroBitmapWithLoader(
-    modifier: Modifier = Modifier,
     image: Bitmap,
     borderColor: Color,
+    modifier: Modifier = Modifier,
     isLoading: Boolean = false,
     onCloseClick: (() -> Unit)? = null,
     loader: @Composable (BoxScope.() -> Unit)? = null,
@@ -74,7 +74,7 @@ fun RetroBitmapWithLoader(
 
 @Preview
 @Composable
-fun RetroImageWithLoaderPreview() {
+private fun RetroImageWithLoaderPreview() {
     val context = LocalContext.current
     val bitmap: Bitmap =
         BitmapFactory.decodeResource(context.resources, R.drawable.add_image_placeholder)
