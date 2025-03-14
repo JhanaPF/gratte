@@ -6,6 +6,7 @@ import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.Protocol
 import okhttp3.Response
 import okhttp3.ResponseBody.Companion.toResponseBody
+import org.json.JSONObject
 
 class AssetsMockInterceptorImpl(private val context: Context) : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
@@ -21,11 +22,21 @@ class AssetsMockInterceptorImpl(private val context: Context) : Interceptor {
         return if (fileName != null) {
             // Read the file content from assets.
             val jsonString = context.assets.open(fileName).bufferedReader().use { it.readText() }
-            Response.Builder()
+            val jsonObject = JSONObject(jsonString)
+            val appStatus = jsonObject.optInt("status", 200)
+            val isSuccess = jsonObject.optBoolean("success", true)
+
+            val httpCode = if (!isSuccess || appStatus == 400) {
+                400
+            } else {
+                200
+            }
+
+            return Response.Builder()
                 .request(request)
                 .protocol(Protocol.HTTP_1_1)
-                .code(200)
-                .message("OK")
+                .code(httpCode)
+                .message(if (httpCode == 200) "OK" else "Bad Request")
                 .body(jsonString.toResponseBody("application/json".toMediaTypeOrNull()))
                 .build()
         } else {
