@@ -36,6 +36,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -48,15 +49,18 @@ import com.example.presentation.composables.RetroBitmapWithLoader
 import com.example.presentation.composables.LottieLoader
 import com.example.presentation.composables.RetroNeonButton
 import com.example.presentation.composables.RowSwitch
+import com.example.presentation.theme.PixeliseItTheme
 import com.example.presentation.theme.retro
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 private const val DEFAULT_PIXEL_SIZE = 1f
 private const val SLIDER_MAX = 50f
+private const val IMAGE_PICKER_DEFAULT_FOLDER = "image/*"
 
 @Composable
 fun ImagePickerScreen(
+    navigateBack: () -> Boolean,
     viewModel: ImagePickerViewModel = hiltViewModel(),
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
@@ -70,10 +74,14 @@ fun ImagePickerScreen(
                     is ImagePickerEvents.ShowErrorSnackBar -> {
                         coroutineScope.launch {
                             snackBarHostState.showSnackbar(
-                                message = "Error sending image",
+                                message = event.message,
                                 duration = SnackbarDuration.Short,
                             )
                         }
+                    }
+
+                    ImagePickerEvents.NavigateBack -> {
+                        navigateBack()
                     }
                 }
             }
@@ -81,7 +89,7 @@ fun ImagePickerScreen(
 
     PixelatedImagePicker(
         state = state,
-        snackbarHostState = snackBarHostState,
+        snackBarHostState = snackBarHostState,
         onSelectImage = viewModel::onSelectImage,
         onPixelSizeChanged = viewModel::onPixelSizeChanged,
         onCrtToggled = viewModel::onCrtToggled,
@@ -93,7 +101,7 @@ fun ImagePickerScreen(
 @Composable
 fun PixelatedImagePicker(
     state: ImagePickerUiState,
-    snackbarHostState: SnackbarHostState,
+    snackBarHostState: SnackbarHostState,
     onSelectImage: (Bitmap) -> Unit,
     onPixelSizeChanged: (Float) -> Unit,
     onCrtToggled: (Boolean) -> Unit,
@@ -104,7 +112,7 @@ fun PixelatedImagePicker(
     val context = LocalContext.current
 
     var crtEffect by remember { mutableStateOf(false) }
-    var pixelSize by remember { mutableFloatStateOf(DEFAULT_PIXEL_SIZE) } // Adjust pixelation size
+    var pixelSize by remember { mutableFloatStateOf(DEFAULT_PIXEL_SIZE) }
 
     var borderColor by remember { mutableStateOf(Color.White) }
 
@@ -122,7 +130,7 @@ fun PixelatedImagePicker(
 
     Scaffold(
         snackbarHost = {
-            SnackbarHost(hostState = snackbarHostState)
+            SnackbarHost(hostState = snackBarHostState)
         },
     ) { _ ->
         Column(
@@ -171,7 +179,7 @@ fun PixelatedImagePicker(
                 text = stringResource(R.string.select_button_label),
                 borderColor = borderColor,
                 size = NeonButtonSize.Small,
-                onClick = { imagePickerLauncher.launch("image/*") },
+                onClick = { imagePickerLauncher.launch(IMAGE_PICKER_DEFAULT_FOLDER) },
             )
 
             Slider(
@@ -210,5 +218,26 @@ fun PixelatedImagePicker(
                 onClick = { onSendImageClicked() },
             )
         }
+    }
+}
+
+@Preview
+@Composable
+private fun ImagePickerScreenPreview() {
+    val dummyState = ImagePickerUiState(
+        image = null,
+        isLoading = false,
+    )
+
+    PixeliseItTheme {
+        PixelatedImagePicker(
+            state = dummyState,
+            snackBarHostState = SnackbarHostState(),
+            onSelectImage = {},
+            onPixelSizeChanged = {},
+            onCrtToggled = {},
+            onSendImageClicked = {},
+            onCloseImageClick = {},
+        )
     }
 }

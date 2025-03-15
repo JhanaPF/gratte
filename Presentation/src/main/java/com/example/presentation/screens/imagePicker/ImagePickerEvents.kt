@@ -1,5 +1,6 @@
 package com.example.presentation.screens.imagePicker
 
 sealed interface ImagePickerEvents {
-    data object ShowErrorSnackBar : ImagePickerEvents
+    data object NavigateBack : ImagePickerEvents
+    data class ShowErrorSnackBar(val message: String) : ImagePickerEvents
 }

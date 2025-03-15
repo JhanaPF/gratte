@@ -11,9 +11,10 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.presentation.screens.home.HomeScreen
 import com.example.presentation.screens.gallery.GalleryScreen
+import com.example.presentation.screens.home.HomeScreen
 import com.example.presentation.screens.imagePicker.ImagePickerScreen
+import com.example.presentation.screens.imagePicker.navigation.ImagePicker
 import com.example.presentation.screens.imageView.ImageViewScreen
 import com.example.presentation.screens.imageView.navigation.ImageView
 import com.example.presentation.screens.vote.ImageVoteScreen
@@ -37,8 +38,15 @@ fun AppNavHost(
             HomeScreen()
         }
         composable<AppRoute.ImagePicker> {
-            ImagePickerScreen()
+            ImagePickerScreen(
+                navigateBack = { navController.navigateUp() },
+            )
         }
+        composable<ImagePicker> {
+            ImagePickerScreen(
+                navigateBack = { navController.navigateUp() },
+            )
+        } // little trick to make the ImagePicker screen work with the ImagePicker route with argument as well as in the BottomBar
         composable<AppRoute.ImageVote> {
             ImageVoteScreen()
         }
@@ -47,7 +55,9 @@ fun AppNavHost(
                 navigateToImageView = { imageId ->
                     navController.navigate(ImageView(imageId = imageId))
                 },
-                navigateToImagePicker = { navController.navigate(AppRoute.ImagePicker) },
+                navigateToImagePicker = {
+                    navController.navigate(ImagePicker(origin = ImagePicker.Companion.Origin.GALLERY))
+                },
             )
         }
         composable<ImageView> { _ ->

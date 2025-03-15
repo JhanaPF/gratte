@@ -4,7 +4,7 @@ import com.example.common.extensions.suspendRunCatching
 import com.example.data.data_source.mapper.toDomainModel
 import com.example.domain.model.HighScoresModel
 import com.example.network.api.HighScoresApi
-import com.example.network.extenstions.dataOrError
+import com.example.network.extenstions.suspendDataOrError
 import javax.inject.Inject
 
 class HighScoresRemoteDataSourceImpl @Inject constructor(
@@ -15,7 +15,7 @@ class HighScoresRemoteDataSourceImpl @Inject constructor(
         suspendRunCatching {
             highScoresApi.getHighScores()
         }.mapCatching { response ->
-            response.dataOrError {
+            response.suspendDataOrError {
                 it.toDomainModel()
             }
         }

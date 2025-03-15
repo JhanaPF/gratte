@@ -15,6 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -29,6 +30,7 @@ import com.example.presentation.theme.retro
 import com.example.presentation.utils.colorForRank
 import com.example.presentation.utils.randomFlashyColor
 import kotlinx.collections.immutable.PersistentList
+import kotlinx.collections.immutable.persistentListOf
 
 @Composable
 fun HomeScreen(
@@ -174,5 +176,34 @@ fun HighScoresList(
                 color = colorForRank(index),
             )
         }
+    }
+}
+
+@Preview(showBackground = true, name = "HomeScreen - Success")
+@Composable
+private fun HomeScreenSuccessPreview() {
+    val dummyHighScores = persistentListOf(
+        HighScoresItem(rank = "1", score = 1500, name = "Alice", pictureUrl = "https://i.pravatar.cc/150?img=1"),
+        HighScoresItem(rank = "2", score = 2000, name = "Bob", pictureUrl = "https://i.pravatar.cc/150?img=2"),
+        HighScoresItem(rank = "3", score = 1000, name = "Charlie", pictureUrl = "https://i.pravatar.cc/150?img=3"),
+        HighScoresItem(rank = "4", score = 1750, name = "Dave", pictureUrl = "https://i.pravatar.cc/150?img=4"),
+    )
+    val dummyPersonalBest = HighScoresItem(rank = "1", score = 2500, name = "You", pictureUrl = null)
+    val state = HomeScreenUiState.Success(
+        highScores = dummyHighScores,
+        personalBest = dummyPersonalBest,
+    )
+
+    PixeliseItTheme {
+        HomeContent(state = state)
+    }
+}
+
+@Preview(showBackground = true, name = "HomeScreen - Error")
+@Composable
+private fun HomeScreenErrorPreview() {
+    val state = HomeScreenUiState.Error(message = Throwable("Something went wrong!"))
+    PixeliseItTheme {
+        HomeContent(state = state)
     }
 }

@@ -17,6 +17,7 @@ fun ImageItem(
     modifier: Modifier = Modifier,
     base64Image: ByteArray? = null,
     imageUrl: String? = null,
+    contentScale: ContentScale = ContentScale.FillHeight,
 ) {
     val context = LocalContext.current
     val dataToLoad = imageUrl ?: base64Image
@@ -31,7 +32,7 @@ fun ImageItem(
         model = request,
         contentDescription = "Gallery Image",
         modifier = modifier.fillMaxWidth(),
-        contentScale = ContentScale.Crop,
+        contentScale = contentScale,
         placeholder = painterResource(R.drawable.placeholder),
     )
 }

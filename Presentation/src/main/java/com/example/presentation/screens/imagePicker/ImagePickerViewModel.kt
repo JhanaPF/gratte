@@ -1,10 +1,13 @@
 package com.example.presentation.screens.imagePicker
 
 import android.graphics.Bitmap
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.toRoute
 import com.example.domain.use_cases.gpui.ProcessImageUseCase
 import com.example.domain.use_cases.image.SendUserPictureUseCase
+import com.example.presentation.screens.imagePicker.navigation.ImagePicker
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
@@ -21,9 +24,12 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ImagePickerViewModel @Inject constructor(
+    savedStateHandle: SavedStateHandle,
     val processImageUseCase: ProcessImageUseCase,
     val sendUserPictureUseCase: SendUserPictureUseCase,
 ) : ViewModel() {
+
+    private val origin = savedStateHandle.toRoute<ImagePicker>().origin
 
     private val initialState: ImagePickerUiState =
         ImagePickerUiState(
@@ -65,9 +71,13 @@ class ImagePickerViewModel @Inject constructor(
                 sendUserPictureUseCase(image)
                     .onSuccess {
                         originalImageFlow.value = null
+                        if (origin == ImagePicker.Companion.Origin.GALLERY) {
+                            _events.send(ImagePickerEvents.NavigateBack)
+                        }
                     }
                     .onFailure { _ ->
-                        _events.send(ImagePickerEvents.ShowErrorSnackBar)
+                        _events.send(ImagePickerEvents.ShowErrorSnackBar("Error sending image"))
+                        // i could have a string resolver provider but i think its overkill just for this
                     }
                 isLoadingFlow.value = false
             }
