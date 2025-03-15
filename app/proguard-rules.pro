@@ -20,4 +20,4 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 
--ignorewarnings
+-dontwarn io.ktor.**
