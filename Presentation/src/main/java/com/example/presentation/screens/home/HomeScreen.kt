@@ -20,8 +20,8 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.presentation.R
-import com.example.presentation.composables.ErrorView
-import com.example.presentation.composables.LottieLoader
+import com.example.presentation.composables.ErrorContent
+import com.example.presentation.composables.LoadingIndicator
 import com.example.presentation.composables.ScoreRow
 import com.example.presentation.theme.PixeliseItTheme
 import com.example.presentation.theme.Red
@@ -85,23 +85,9 @@ fun HomeContent(
             }
 
             is HomeScreenUiState.Error -> {
-                ErrorView(message = state.message)
+                ErrorContent(message = state.message)
             }
         }
-    }
-}
-
-@Composable
-fun LoadingIndicator(
-    modifier: Modifier = Modifier,
-) {
-    Box(
-        modifier = modifier,
-    ) {
-        LottieLoader(
-            modifier = Modifier.align(Alignment.Center),
-            resId = R.raw.loader,
-        )
     }
 }
 

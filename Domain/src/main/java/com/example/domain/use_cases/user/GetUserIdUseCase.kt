@@ -1,4 +1,4 @@
-package com.example.domain.use_cases
+package com.example.domain.use_cases.user
 
 import javax.inject.Inject
 

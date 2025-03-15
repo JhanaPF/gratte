@@ -4,9 +4,9 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.toRoute
-import com.example.domain.use_cases.ConvertBase64ToBitmapUseCase
-import com.example.domain.use_cases.DeleteImageByIdUseCase
-import com.example.domain.use_cases.GetImageByIdUseCase
+import com.example.domain.use_cases.image.ConvertBase64ToBitmapUseCase
+import com.example.domain.use_cases.image.DeleteImageByIdUseCase
+import com.example.domain.use_cases.image.GetImageByIdUseCase
 import com.example.presentation.screens.imageView.navigation.ImageView
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers

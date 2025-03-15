@@ -16,6 +16,7 @@ import com.example.presentation.screens.gallery.GalleryScreen
 import com.example.presentation.screens.imagePicker.ImagePickerScreen
 import com.example.presentation.screens.imageView.ImageViewScreen
 import com.example.presentation.screens.imageView.navigation.ImageView
+import com.example.presentation.screens.vote.ImageVoteScreen
 
 @Composable
 fun AppNavHost(
@@ -37,6 +38,9 @@ fun AppNavHost(
         }
         composable<AppRoute.ImagePicker> {
             ImagePickerScreen()
+        }
+        composable<AppRoute.ImageVote> {
+            ImageVoteScreen()
         }
         composable<AppRoute.Gallery> {
             GalleryScreen(

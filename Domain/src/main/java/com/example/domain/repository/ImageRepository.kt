@@ -11,4 +11,7 @@ interface ImageRepository {
     suspend fun getImageById(pictureId: Int): Result<ImageModel?>
     suspend fun deleteImageById(imageId: Int): Result<Unit>
     suspend fun observePersonalBestScore(userId: String): Flow<ImageModel?>
+    suspend fun getDailyVoteUsersImages(): Result<List<ImageModel>>
+    suspend fun votePositive()
+    suspend fun voteNegative()
 }

@@ -10,5 +10,8 @@ interface AppRoute {
     object ImagePicker : AppRoute
 
     @Serializable
+    object ImageVote : AppRoute
+
+    @Serializable
     object Gallery : AppRoute
 }

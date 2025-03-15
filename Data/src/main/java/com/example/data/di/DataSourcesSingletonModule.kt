@@ -1,6 +1,6 @@
 package com.example.data.di
 
-import com.example.data.data_source.local.HighScoresDataSourceImpl
+import com.example.data.data_source.local.HighScoresLocalDataSourceImpl
 import com.example.data.data_source.local.HighScoresLocalDataSource
 import com.example.data.data_source.local.ImageLocalDataSource
 import com.example.data.data_source.local.ImageLocalDataSourceImpl
@@ -40,5 +40,5 @@ internal interface DataSourcesSingletonModule {
     fun bindHighScoresRemoteDataSource(impl: HighScoresRemoteDataSourceImpl): HighScoresRemoteDataSource
 
     @Binds
-    fun bindHighScoresLocalDataSource(impl: HighScoresDataSourceImpl): HighScoresLocalDataSource
+    fun bindHighScoresLocalDataSource(impl: HighScoresLocalDataSourceImpl): HighScoresLocalDataSource
 }

@@ -1,4 +1,4 @@
-package com.example.domain.use_cases
+package com.example.domain.use_cases.gpui
 
 import android.graphics.Bitmap
 import com.example.domain.gpui.GPUImageProvider

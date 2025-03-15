@@ -1,7 +1,8 @@
-package com.example.domain.use_cases
+package com.example.domain.use_cases.image
 
 import com.example.domain.model.ImageModel
 import com.example.domain.repository.ImageRepository
+import com.example.domain.use_cases.user.GetUserIdUseCase
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject

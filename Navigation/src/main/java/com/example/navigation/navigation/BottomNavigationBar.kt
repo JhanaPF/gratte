@@ -43,7 +43,7 @@ fun BottomNavigationBar(
         NavigationItem(
             title = stringResource(R.string.appbar_vote),
             icon = Icons.Default.Favorite,
-            route = AppRoute.Home,
+            route = AppRoute.ImageVote,
         ),
         NavigationItem(
             title = stringResource(R.string.appbar_gallery),

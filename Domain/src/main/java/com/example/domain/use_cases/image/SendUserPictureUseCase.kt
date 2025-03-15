@@ -1,9 +1,10 @@
-package com.example.domain.use_cases
+package com.example.domain.use_cases.image
 
 import android.graphics.Bitmap
 import com.example.common.extensions.suspendRunCatching
 import com.example.domain.model.ImageModel
 import com.example.domain.repository.ImageRepository
+import com.example.domain.use_cases.user.GetUserIdUseCase
 import javax.inject.Inject
 import kotlin.random.Random
 

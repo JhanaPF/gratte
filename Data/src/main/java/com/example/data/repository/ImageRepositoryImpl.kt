@@ -23,6 +23,10 @@ class ImageRepositoryImpl @Inject constructor(
                 emit(Result.failure(error))
             }
 
+    override suspend fun votePositive() = imageRemoteDataSource.votePositive()
+
+    override suspend fun voteNegative() = imageRemoteDataSource.voteNegative()
+
     override suspend fun observePersonalBestScore(userId: String): Flow<ImageModel?> =
         imageLocalDataSource.observePersonalScoreBestScore(userId)
 
@@ -30,6 +34,9 @@ class ImageRepositoryImpl @Inject constructor(
         imageRemoteDataSource.insertImage(image).mapCatching {
             imageLocalDataSource.insertImage(image)
         }
+
+    override suspend fun getDailyVoteUsersImages(): Result<List<ImageModel>> =
+        imageRemoteDataSource.getDailyVoteUsersImages()
 
     override suspend fun updateScore(imageId: Int, score: Int) =
         imageLocalDataSource.updateScore(imageId, score)

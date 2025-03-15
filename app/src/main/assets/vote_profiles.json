@@ -1,0 +1,15 @@
+{
+  "status": 200,
+  "success": true,
+  "data": [
+    { "id": 1, "userId": "Alice",   "image": "https://i.pravatar.cc/700", "score": 1500 },
+    { "id": 2, "userId": "Bob",     "image": "https://i.pravatar.cc/650", "score": 2000 },
+    { "id": 3, "userId": "Charlie", "image": "https://i.pravatar.cc/670", "score": 1000 },
+    { "id": 4, "userId": "Dave",    "image": "https://i.pravatar.cc/660", "score": 1750 },
+    { "id": 5, "userId": "Lea",     "image": "https://i.pravatar.cc/690", "score": 4200 },
+    { "id": 6, "userId": "Marie",   "image": "https://i.pravatar.cc/680", "score": 2132 },
+    { "id": 7, "userId": "Rose",    "image": "https://i.pravatar.cc/650", "score": 412 },
+    { "id": 8, "userId": "Jose",    "image": "https://i.pravatar.cc/640", "score": 3425 },
+    { "id": 9, "userId": "Artyom",  "image": "https://i.pravatar.cc/630", "score": 9342 }
+  ]
+}

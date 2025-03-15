@@ -1,4 +1,4 @@
-package com.example.domain.use_cases
+package com.example.domain.use_cases.image
 
 import android.graphics.Bitmap
 import android.util.Base64

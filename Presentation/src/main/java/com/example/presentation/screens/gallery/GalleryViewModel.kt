@@ -3,9 +3,9 @@ package com.example.presentation.screens.gallery
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.model.ImageModel
-import com.example.domain.use_cases.ConvertBase64ToBitmapUseCase
-import com.example.domain.use_cases.DeleteAllImagesUseCase
-import com.example.domain.use_cases.ObserveUserPicturesUseCase
+import com.example.domain.use_cases.image.ConvertBase64ToBitmapUseCase
+import com.example.domain.use_cases.image.DeleteAllImagesUseCase
+import com.example.domain.use_cases.image.ObserveUserPicturesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.collections.immutable.toPersistentList
 import kotlinx.coroutines.Dispatchers

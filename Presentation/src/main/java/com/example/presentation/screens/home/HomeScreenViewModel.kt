@@ -4,8 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.model.HighScoresModel
 import com.example.domain.model.ImageModel
-import com.example.domain.use_cases.GetHighScoresUseCase
-import com.example.domain.use_cases.ObservePersonalBestScoreUseCase
+import com.example.domain.use_cases.highscore.GetHighScoresUseCase
+import com.example.domain.use_cases.highscore.ObservePersonalBestScoreUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.collections.immutable.toPersistentList
 import kotlinx.coroutines.Dispatchers

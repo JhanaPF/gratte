@@ -24,4 +24,8 @@
     <string name="delete_all_images_title">Delete all pictures ?</string>
     <string name="delete_all_images_text">You won\'t get a second chance</string>
 
+    //Vote
+    <string name="vote_title">Vote for It!</string>
+    <string name="vote_end_of_profiles">Come back next time for more !</string>
+
 </resources>

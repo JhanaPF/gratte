@@ -1,4 +1,4 @@
-package com.example.domain.use_cases
+package com.example.domain.use_cases.highscore
 
 import com.example.domain.model.HighScoresModel
 import com.example.domain.repository.HighScoresRepository

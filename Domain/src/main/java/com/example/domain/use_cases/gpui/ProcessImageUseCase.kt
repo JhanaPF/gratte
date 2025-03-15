@@ -1,4 +1,4 @@
-package com.example.domain.use_cases
+package com.example.domain.use_cases.gpui
 
 import android.graphics.Bitmap
 import javax.inject.Inject
@@ -18,9 +18,9 @@ class ProcessImageUseCase @Inject constructor(
             pixelated
         }
     }
-}
 
-data class FilterParameters(
-    val pixelSize: Float = 1f,
-    val applyCrt: Boolean = false,
-)
+    data class FilterParameters(
+        val pixelSize: Float = 1f,
+        val applyCrt: Boolean = false,
+    )
+}

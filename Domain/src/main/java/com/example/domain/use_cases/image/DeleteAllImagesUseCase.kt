@@ -1,6 +1,7 @@
-package com.example.domain.use_cases
+package com.example.domain.use_cases.image
 
 import com.example.domain.repository.ImageRepository
+import com.example.domain.use_cases.user.GetUserIdUseCase
 import javax.inject.Inject
 
 class DeleteAllImagesUseCase @Inject constructor(

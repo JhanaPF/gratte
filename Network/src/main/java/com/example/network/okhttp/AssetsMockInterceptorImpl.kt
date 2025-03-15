@@ -14,8 +14,12 @@ class AssetsMockInterceptorImpl(private val context: Context) : Interceptor {
         val path = request.url.encodedPath
 
         val fileName = when {
-            path.contains("highscores") -> "high_scores.json"
-            path.contains("image") -> "image_send.json"
+            path.startsWith("/image/vote/positive") -> "vote_positive.json"
+            path.startsWith("/image/vote/negative") -> "vote_negative.json"
+            path.startsWith("/image/vote") -> "vote_profiles.json"
+            path.startsWith("/image") -> "image_send.json"
+            path.startsWith("/highscores") -> "high_scores.json"
+
             else -> null
         }
 

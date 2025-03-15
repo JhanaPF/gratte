@@ -3,9 +3,8 @@ package com.example.presentation.screens.imagePicker
 import android.graphics.Bitmap
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.domain.use_cases.FilterParameters
-import com.example.domain.use_cases.ProcessImageUseCase
-import com.example.domain.use_cases.SendUserPictureUseCase
+import com.example.domain.use_cases.gpui.ProcessImageUseCase
+import com.example.domain.use_cases.image.SendUserPictureUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
@@ -37,7 +36,7 @@ class ImagePickerViewModel @Inject constructor(
     private val isLoadingFlow: MutableStateFlow<Boolean> =
         MutableStateFlow(false)
 
-    private val filterParamsFlow = MutableStateFlow(FilterParameters())
+    private val filterParamsFlow = MutableStateFlow(ProcessImageUseCase.FilterParameters())
 
     private val _events: Channel<ImagePickerEvents> = Channel(Channel.BUFFERED)
     val events: Flow<ImagePickerEvents> = _events.receiveAsFlow()

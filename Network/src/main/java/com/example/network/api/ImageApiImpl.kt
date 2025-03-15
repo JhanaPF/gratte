@@ -15,4 +15,13 @@ class ImageApiImpl @Inject constructor(
 
     override suspend fun sendImage(image: ImageApiModel): ResponseApiModel<Unit> =
         service.sendImage(image)
+
+    override suspend fun votePositive(): ResponseApiModel<Unit> =
+        service.votePositive()
+
+    override suspend fun voteNegative(): ResponseApiModel<Unit> =
+        service.voteNegative()
+
+    override suspend fun getDailyVoteUsersImages(): ResponseApiModel<List<ImageApiModel>> =
+        service.getDailyVoteUsersImages()
 }

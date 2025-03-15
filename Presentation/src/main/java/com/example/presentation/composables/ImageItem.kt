@@ -14,22 +14,23 @@ import com.example.presentation.R
 
 @Composable
 fun ImageItem(
-    base64Image: ByteArray,
     modifier: Modifier = Modifier,
+    base64Image: ByteArray? = null,
+    imageUrl: String? = null,
 ) {
     val context = LocalContext.current
+    val dataToLoad = imageUrl ?: base64Image
 
-    val request = remember(base64Image) {
+    val request = remember(dataToLoad) {
         ImageRequest.Builder(context)
-            .data(base64Image)
+            .data(dataToLoad)
             .crossfade(true)
             .build()
     }
     AsyncImage(
         model = request,
         contentDescription = "Gallery Image",
-        modifier = modifier
-            .fillMaxWidth(),
+        modifier = modifier.fillMaxWidth(),
         contentScale = ContentScale.Crop,
         placeholder = painterResource(R.drawable.placeholder),
     )

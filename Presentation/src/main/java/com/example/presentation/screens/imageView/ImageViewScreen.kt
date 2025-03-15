@@ -22,7 +22,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.presentation.R
-import com.example.presentation.composables.ErrorView
+import com.example.presentation.composables.ErrorContent
 import com.example.presentation.composables.ImageItem
 import com.example.presentation.utils.randomFlashyColor
 
@@ -61,7 +61,7 @@ fun GalleryScreenContent(
     when (state) {
         is ImageViewUiState.Loading -> {}
         is ImageViewUiState.Error -> {
-            ErrorView(message = state.message)
+            ErrorContent(message = state.message)
         }
 
         is ImageViewUiState.Success -> {

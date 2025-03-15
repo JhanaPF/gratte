@@ -6,7 +6,7 @@ import com.example.data.data_source.mapper.toEntity
 import com.example.domain.model.HighScoresModel
 import javax.inject.Inject
 
-class HighScoresDataSourceImpl @Inject constructor(
+class HighScoresLocalDataSourceImpl @Inject constructor(
     private val highScoresDao: HighScoresDao,
 ) : HighScoresLocalDataSource {
 

@@ -1,4 +1,4 @@
-package com.example.domain.use_cases
+package com.example.domain.use_cases.image
 
 import com.example.common.extensions.suspendRunCatching
 import com.example.domain.repository.ImageRepository

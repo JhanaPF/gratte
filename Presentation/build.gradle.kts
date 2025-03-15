@@ -58,6 +58,10 @@ dependencies {
     implementation (libs.lottie.compose)
     implementation(libs.kotlinx.collections.immutable)
     implementation(libs.coil.compose)
+    implementation(libs.coil.network.okhttp)
+    implementation(libs.coil.network.ktor2)
+    implementation(libs.coil.network.ktor3)
+    implementation(libs.ktor.io.jvm)
     kapt(libs.hilt.android.compiler)
     lintChecks(libs.tools.lintCompose)
 }

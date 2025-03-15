@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.dp
 import com.example.presentation.R
 
 @Composable
-fun ErrorView(
+fun ErrorContent(
     message: Throwable,
     modifier: Modifier = Modifier,
 ) {
@@ -45,7 +45,7 @@ fun ErrorView(
 @Preview
 @Composable
 private fun ErrorViewPreview() {
-    ErrorView(
+    ErrorContent(
         message = Throwable("An error occurred"),
     )
 }

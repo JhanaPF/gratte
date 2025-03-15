@@ -1,4 +1,4 @@
-package com.example.domain.use_cases
+package com.example.domain.use_cases.image
 
 import android.util.Base64
 import com.example.common.extensions.suspendRunCatching
