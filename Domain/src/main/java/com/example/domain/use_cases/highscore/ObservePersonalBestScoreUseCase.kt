@@ -12,7 +12,7 @@ class ObservePersonalBestScoreUseCase @Inject constructor(
     private val imageRepository: ImageRepository,
 ) {
     operator fun invoke(): Flow<ImageModel?> = flow {
-        val userId = getUserIdUseCase() // suspend call
+        val userId = getUserIdUseCase()
         imageRepository.observePersonalBestScore(userId).collect { result ->
             emit(result)
         }

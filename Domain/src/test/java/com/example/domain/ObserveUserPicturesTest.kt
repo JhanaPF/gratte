@@ -58,7 +58,7 @@ class ObserveUserPicturesUseCaseTest {
         coEvery { getUserIdUseCase() } returns userId
         every { imageRepository.observeImagesByUserId(userId) } returns flowOf(failureResult)
 
-        // When & Then
+        // Then
         observeUserPicturesUseCase().test {
             val emission = awaitItem()
             assertTrue(emission.isFailure)
