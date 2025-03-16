@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.librairy)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.junit5)
     id("kotlin-kapt")
     id("com.google.dagger.hilt.android")
 }
@@ -46,6 +47,19 @@ dependencies {
     implementation(libs.hilt.compose)
     kapt(libs.hilt.android.compiler)
     implementation(libs.gpuimage)
+    androidTestImplementation(libs.androidx.ui.test.junit4)
+    testImplementation(libs.junit)
+    testImplementation(platform(libs.test.junit5Bom))
+
+    testImplementation(libs.test.junit5JupiterApi)
+    testImplementation(libs.test.junit5JupiterParams)
+    testRuntimeOnly(libs.test.junit5JupiterJupiterEngine)
+
+    testImplementation(libs.test.turbine)
+    testImplementation(libs.test.truth)
+    testImplementation(libs.test.coroutines)
+    testImplementation(libs.test.kotlinJunit)
+    testImplementation(libs.test.mockk)
 }
 
 kapt {
