@@ -3,6 +3,7 @@ package com.example.presentation.screens.home
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
@@ -83,7 +84,7 @@ fun HomeContent(
             }
 
             is HomeScreenUiState.Success -> {
-                Success(state = state)
+                HighScoresList(state = state)
             }
 
             is HomeScreenUiState.Error -> {
@@ -94,18 +95,24 @@ fun HomeContent(
 }
 
 @Composable
-fun Success(
+fun HighScoresList(
     state: HomeScreenUiState.Success,
     modifier: Modifier = Modifier,
 ) {
     Column(
         modifier = modifier,
     ) {
-        HighScoresList(
+        Box(
             modifier = Modifier
-                .padding(bottom = 24.dp),
-            highScores = state.highScores,
-        )
+                .weight(1f)
+                .fillMaxWidth(),
+        ) {
+            HighScoresList(
+                modifier = Modifier
+                    .padding(bottom = 24.dp),
+                highScores = state.highScores,
+            )
+        }
         Text(
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)
@@ -183,12 +190,33 @@ fun HighScoresList(
 @Composable
 private fun HomeScreenSuccessPreview() {
     val dummyHighScores = persistentListOf(
-        HighScoresItem(rank = "1", score = 1500, name = "Alice", pictureUrl = "https://i.pravatar.cc/150?img=1"),
-        HighScoresItem(rank = "2", score = 2000, name = "Bob", pictureUrl = "https://i.pravatar.cc/150?img=2"),
-        HighScoresItem(rank = "3", score = 1000, name = "Charlie", pictureUrl = "https://i.pravatar.cc/150?img=3"),
-        HighScoresItem(rank = "4", score = 1750, name = "Dave", pictureUrl = "https://i.pravatar.cc/150?img=4"),
+        HighScoresItem(
+            rank = "1",
+            score = 1500,
+            name = "Alice",
+            pictureUrl = "https://i.pravatar.cc/150?img=1",
+        ),
+        HighScoresItem(
+            rank = "2",
+            score = 2000,
+            name = "Bob",
+            pictureUrl = "https://i.pravatar.cc/150?img=2",
+        ),
+        HighScoresItem(
+            rank = "3",
+            score = 1000,
+            name = "Charlie",
+            pictureUrl = "https://i.pravatar.cc/150?img=3",
+        ),
+        HighScoresItem(
+            rank = "4",
+            score = 1750,
+            name = "Dave",
+            pictureUrl = "https://i.pravatar.cc/150?img=4",
+        ),
     )
-    val dummyPersonalBest = HighScoresItem(rank = "1", score = 2500, name = "You", pictureUrl = null)
+    val dummyPersonalBest =
+        HighScoresItem(rank = "1", score = 2500, name = "You", pictureUrl = null)
     val state = HomeScreenUiState.Success(
         highScores = dummyHighScores,
         personalBest = dummyPersonalBest,
