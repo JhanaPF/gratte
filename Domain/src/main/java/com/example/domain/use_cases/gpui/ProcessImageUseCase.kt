@@ -1,19 +1,19 @@
 package com.example.domain.use_cases.gpui
 
-import android.graphics.Bitmap
+import com.example.domain.model.ImageData
+import com.example.domain.gpui.ImageProcessor
 import javax.inject.Inject
 
 class ProcessImageUseCase @Inject constructor(
-    private val applyPixelationEffectUseCase: ApplyPixelationEffectUseCase,
-    private val applyCRTEffectUseCase: ApplyCRTEffectUseCase,
+    private val imageProcessor: ImageProcessor,
 ) {
-    operator fun invoke(
-        image: Bitmap,
+    suspend operator fun invoke(
+        image: ImageData,
         params: FilterParameters,
-    ): Bitmap {
-        val pixelated = applyPixelationEffectUseCase(image, params.pixelSize)
+    ): ImageData {
+        val pixelated = imageProcessor.applyPixelation(image, params.pixelSize)
         return if (params.applyCrt) {
-            applyCRTEffectUseCase(pixelated)
+            imageProcessor.applyCrt(pixelated)
         } else {
             pixelated
         }

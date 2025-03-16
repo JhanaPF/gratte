@@ -1,10 +1,10 @@
 package com.example.presentation.screens.imagePicker
 
-import android.graphics.Bitmap
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.toRoute
+import com.example.domain.model.ImageData
 import com.example.domain.use_cases.gpui.ProcessImageUseCase
 import com.example.domain.use_cases.image.SendUserPictureUseCase
 import com.example.presentation.screens.imagePicker.navigation.ImagePicker
@@ -36,7 +36,7 @@ class ImagePickerViewModel @Inject constructor(
             image = null,
         )
 
-    private val originalImageFlow: MutableStateFlow<Bitmap?> =
+    private val originalImageFlow: MutableStateFlow<ImageData?> =
         MutableStateFlow(null)
 
     private val isLoadingFlow: MutableStateFlow<Boolean> =
@@ -84,7 +84,7 @@ class ImagePickerViewModel @Inject constructor(
         }
     }
 
-    fun onSelectImage(image: Bitmap) {
+    fun onSelectImage(image: ImageData) {
         originalImageFlow.value = image
     }
 

@@ -1,7 +1,5 @@
 package com.example.presentation.composables
 
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
@@ -14,7 +12,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -24,7 +21,7 @@ import com.example.presentation.R
 
 @Composable
 fun RetroBitmapWithLoader(
-    image: Bitmap,
+    image: ByteArray,
     borderColor: Color,
     modifier: Modifier = Modifier,
     isLoading: Boolean = false,
@@ -38,12 +35,9 @@ fun RetroBitmapWithLoader(
             .padding(vertical = 8.dp)
             .border(2.dp, borderColor),
     ) {
-        Image(
-            bitmap = image.asImageBitmap(),
-            contentScale = ContentScale.Fit,
-            contentDescription = "Pixelated Image",
-            modifier = Modifier
-                .align(Alignment.Center),
+        ImageItem(
+            base64Image = image,
+            contentScale = ContentScale.Crop,
         )
         if (onCloseClick != null) {
             IconButton(
@@ -76,11 +70,10 @@ fun RetroBitmapWithLoader(
 @Composable
 private fun RetroImageWithLoaderPreview() {
     val context = LocalContext.current
-    val bitmap: Bitmap =
-        BitmapFactory.decodeResource(context.resources, R.drawable.add_image_placeholder)
+    val image: ByteArray = ByteArray(0)
 
     RetroBitmapWithLoader(
-        image = bitmap,
+        image = image,
         borderColor = Color.Red,
         isLoading = true,
         onCloseClick = { },

@@ -1,4 +1,4 @@
-package com.example.domain.gpui
+package com.example.data.provider
 
 import jp.co.cyberagent.android.gpuimage.GPUImage
 

@@ -1,6 +1,5 @@
 package com.example.presentation.screens.imagePicker
 
-import android.graphics.Bitmap
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -41,7 +40,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.example.presentation.utils.loadBitmapFromUri
+import com.example.domain.model.ImageData
 import com.example.presentation.utils.randomFlashyColor
 import com.example.presentation.R
 import com.example.presentation.composables.NeonButtonSize
@@ -51,6 +50,7 @@ import com.example.presentation.composables.RetroNeonButton
 import com.example.presentation.composables.RowSwitch
 import com.example.presentation.theme.PixeliseItTheme
 import com.example.presentation.theme.retro
+import com.example.presentation.utils.loadImageDataFromUri
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -102,13 +102,15 @@ fun ImagePickerScreen(
 fun PixelatedImagePicker(
     state: ImagePickerUiState,
     snackBarHostState: SnackbarHostState,
-    onSelectImage: (Bitmap) -> Unit,
+    onSelectImage: (ImageData) -> Unit,
     onPixelSizeChanged: (Float) -> Unit,
     onCrtToggled: (Boolean) -> Unit,
     onSendImageClicked: () -> Unit,
     modifier: Modifier = Modifier,
     onCloseImageClick: () -> Unit = {},
 ) {
+    val coroutineScope = rememberCoroutineScope()
+
     val context = LocalContext.current
 
     var crtEffect by remember { mutableStateOf(false) }
@@ -119,13 +121,15 @@ fun PixelatedImagePicker(
     LaunchedEffect(Unit) {
         borderColor = randomFlashyColor()
     }
-
     val imagePickerLauncher =
         rememberLauncherForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
-            onSelectImage(
-                uri?.let { loadBitmapFromUri(context, it) }
-                    ?: return@rememberLauncherForActivityResult,
-            )
+            uri?.let {
+                coroutineScope.launch {
+                    loadImageDataFromUri(context, it)?.let { imageData ->
+                        onSelectImage(imageData)
+                    }
+                }
+            }
         }
 
     Scaffold(
@@ -148,7 +152,7 @@ fun PixelatedImagePicker(
 
             if (state.image != null) {
                 RetroBitmapWithLoader(
-                    image = state.image,
+                    image = state.image.bytes,
                     borderColor = borderColor,
                     isLoading = state.isLoading,
                     onCloseClick = onCloseImageClick,

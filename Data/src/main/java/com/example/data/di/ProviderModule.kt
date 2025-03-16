@@ -1,9 +1,9 @@
 package com.example.data.di
 
-import com.example.data.provider.BitmapConverterImpl
-import com.example.data.provider.GPUImageFilterProviderImpl
-import com.example.domain.gpui.GPUImageProvider
-import com.example.domain.utils.BitmapConverter
+import com.example.data.processor.ImageProcessorImpl
+import com.example.data.provider.GPUImageProvider
+import com.example.data.provider.GPUImageProviderImpl
+import com.example.domain.gpui.ImageProcessor
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -15,9 +15,9 @@ import javax.inject.Singleton
 interface ProviderModule {
     @Singleton
     @Binds
-    fun bindGPUImageProvider(impl: GPUImageFilterProviderImpl): GPUImageProvider
+    fun bindGPUImageProvider(impl: GPUImageProviderImpl): GPUImageProvider
 
     @Singleton
     @Binds
-    fun bindBitmapConverter(impl: BitmapConverterImpl): BitmapConverter
+    fun bindImageProcessor(impl: ImageProcessorImpl): ImageProcessor
 }

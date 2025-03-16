@@ -1,4 +1,4 @@
-package com.example.domain.gpui
+package com.example.data.processor
 
 import jp.co.cyberagent.android.gpuimage.filter.GPUImageFilter
 import jp.co.cyberagent.android.gpuimage.filter.GPUImageGaussianBlurFilter.VERTEX_SHADER

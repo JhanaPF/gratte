@@ -1,19 +1,15 @@
 package com.example.domain
 
-import android.graphics.Bitmap
+import com.example.domain.model.ImageData
 import com.example.domain.repository.ImageRepository
-import com.example.domain.use_cases.image.ConvertBitmapToBase64UseCase
+import com.example.domain.use_cases.image.ConvertImageToBase64UseCase
 import com.example.domain.use_cases.image.SendUserPictureUseCase
 import com.example.domain.use_cases.user.GetUserIdUseCase
-import com.example.domain.utils.BitmapConverter
 import io.mockk.coEvery
+import io.mockk.impl.annotations.InjectMockKs
+import io.mockk.impl.annotations.MockK
 import io.mockk.junit5.MockKExtension
-import io.mockk.mockk
-import io.mockk.mockkStatic
-import io.mockk.unmockkAll
 import kotlinx.coroutines.test.runTest
-import org.junit.After
-import org.junit.Before
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -21,43 +17,31 @@ import org.junit.jupiter.api.extension.ExtendWith
 @ExtendWith(MockKExtension::class)
 class SendUserPictureUseCaseTest {
 
-    private val getUserIdUseCase = mockk<GetUserIdUseCase>(relaxed = true)
-    private val bitmapConverter = mockk<BitmapConverter>(relaxed = true)
-    private val imageRepository = mockk<ImageRepository>(relaxed = true)
+    @MockK(relaxed = true)
+    private lateinit var getUserIdUseCase: GetUserIdUseCase
 
-    // Manually instantiate the use case, using our mocks
-    private val useCase = SendUserPictureUseCase(
-        imageRepository = imageRepository,
-        getUserIdUseCase = getUserIdUseCase,
-        convertBitmapToBase64UseCase = ConvertBitmapToBase64UseCase(bitmapConverter),
-    )
+    @MockK(relaxed = true)
+    private lateinit var imageRepository: ImageRepository
 
-    @Before
-    fun setUp() {
-        // Mock static methods of Bitmap so that Bitmap.createBitmap() doesn't crash.
-        mockkStatic(Bitmap::class)
-        // Return a dummy 1x1 bitmap whenever Bitmap.createBitmap is called.
-        io.mockk.every { Bitmap.createBitmap(any<Int>(), any<Int>(), any()) } returns
-            Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888)
-    }
+    // Use a relaxed mock for the converter.
+    @MockK(relaxed = true)
+    private lateinit var convertImageToBase64UseCase: ConvertImageToBase64UseCase
 
-    @After
-    fun tearDown() {
-        unmockkAll()
-    }
+    @InjectMockKs
+    private lateinit var useCase: SendUserPictureUseCase
 
     @Test
     fun `invoke returns success when repository returns success`() = runTest {
-        // Given
-        val dummyBitmap = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888)
+        val dummyImageData = ImageData("dummy".toByteArray())
         val userId = "user123"
-        val base64Image = "dummyBase64"
+        val base64Image = "ZHVtbXk="
+
         coEvery { getUserIdUseCase.invoke() } returns userId
-        coEvery { bitmapConverter.convert(dummyBitmap) } returns base64Image
+        coEvery { convertImageToBase64UseCase.invoke(dummyImageData) } returns base64Image
         coEvery { imageRepository.sendImage(any()) } returns Result.success(Unit)
 
         // When
-        val result = useCase(dummyBitmap)
+        val result = useCase(dummyImageData)
 
         // Then
         assertTrue(result.isSuccess)
@@ -66,16 +50,17 @@ class SendUserPictureUseCaseTest {
     @Test
     fun `invoke returns failure when repository returns failure`() = runTest {
         // Given
-        val dummyBitmap = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888)
+        val dummyImageData = ImageData("dummy".toByteArray())
         val userId = "user123"
-        val base64Image = "dummyBase64"
+        val base64Image = "ZHVtbXk="
+
         coEvery { getUserIdUseCase.invoke() } returns userId
-        coEvery { bitmapConverter.convert(dummyBitmap) } returns base64Image
+        coEvery { convertImageToBase64UseCase.invoke(dummyImageData) } returns base64Image
         val errorMessage = "Error sending image"
         coEvery { imageRepository.sendImage(any()) } returns Result.failure(Exception(errorMessage))
 
         // When
-        val result = useCase(dummyBitmap)
+        val result = useCase(dummyImageData)
 
         // Then
         assertTrue(result.isFailure)
@@ -86,13 +71,13 @@ class SendUserPictureUseCaseTest {
     @Test
     fun `invoke returns failure when getUserUseCase throws exception`() = runTest {
         // Given
-        val dummyBitmap = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888)
+        val dummyImageData = ImageData("dummy".toByteArray())
         val errorMessage = "User not found"
         coEvery { getUserIdUseCase.invoke() } throws Exception(errorMessage)
-        // bitmapConverter.convert and imageRepository.sendImage are not expected to be called
+        // convertImageToBase64UseCase and imageRepository.sendImage are not expected to be called
 
         // When
-        val result = useCase(dummyBitmap)
+        val result = useCase(dummyImageData)
 
         // Then
         assertTrue(result.isFailure)
@@ -101,16 +86,16 @@ class SendUserPictureUseCaseTest {
     }
 
     @Test
-    fun `invoke returns failure when bitmapConverter throws exception`() = runTest {
+    fun `invoke returns failure when convertImageToBase64UseCase throws exception`() = runTest {
         // Given
-        val dummyBitmap = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888)
+        val dummyImageData = ImageData("dummy".toByteArray())
         val userId = "user123"
         val errorMessage = "Conversion failed"
         coEvery { getUserIdUseCase.invoke() } returns userId
-        coEvery { bitmapConverter.convert(dummyBitmap) } throws Exception(errorMessage)
+        coEvery { convertImageToBase64UseCase.invoke(dummyImageData) } throws Exception(errorMessage)
 
         // When
-        val result = useCase(dummyBitmap)
+        val result = useCase(dummyImageData)
 
         // Then
         assertTrue(result.isFailure)

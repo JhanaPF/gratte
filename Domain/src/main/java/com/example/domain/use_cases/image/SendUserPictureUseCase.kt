@@ -1,7 +1,7 @@
 package com.example.domain.use_cases.image
 
-import android.graphics.Bitmap
 import com.example.common.extensions.suspendRunCatching
+import com.example.domain.model.ImageData
 import com.example.domain.model.ImageModel
 import com.example.domain.repository.ImageRepository
 import com.example.domain.use_cases.user.GetUserIdUseCase
@@ -11,11 +11,11 @@ import kotlin.random.Random
 class SendUserPictureUseCase @Inject constructor(
     private val imageRepository: ImageRepository,
     private val getUserIdUseCase: GetUserIdUseCase,
-    private val convertBitmapToBase64UseCase: ConvertBitmapToBase64UseCase,
+    private val convertImageToBase64UseCase: ConvertImageToBase64UseCase,
 ) {
-    suspend operator fun invoke(image: Bitmap): Result<Unit> = suspendRunCatching {
+    suspend operator fun invoke(image: ImageData): Result<Unit> = suspendRunCatching {
         val userId = getUserIdUseCase()
-        val base64Image = convertBitmapToBase64UseCase(image)
+        val base64Image = convertImageToBase64UseCase(image)
         imageRepository.sendImage(
             ImageModel(
                 userId = userId,

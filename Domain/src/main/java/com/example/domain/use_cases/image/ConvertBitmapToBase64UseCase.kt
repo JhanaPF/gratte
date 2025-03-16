@@ -1,14 +1,11 @@
 package com.example.domain.use_cases.image
 
-import android.graphics.Bitmap
-import com.example.domain.utils.BitmapConverter
+import com.example.domain.model.ImageData
 import javax.inject.Inject
+import java.util.Base64
 
-class ConvertBitmapToBase64UseCase @Inject constructor(
-    private val bitmapConverter: BitmapConverter,
-) {
-    suspend operator fun invoke(bitmap: Bitmap): String {
-        // Use the converter to perform scaling and conversion.
-        return bitmapConverter.convert(bitmap)
+class ConvertImageToBase64UseCase @Inject constructor() {
+    suspend operator fun invoke(image: ImageData): String {
+        return Base64.getEncoder().encodeToString(image.bytes)
     }
 }
