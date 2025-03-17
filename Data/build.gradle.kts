@@ -3,7 +3,6 @@ plugins {
     alias(libs.plugins.kotlin.android)
     id("kotlin-kapt")
     id("com.google.dagger.hilt.android")
-    id("com.google.devtools.ksp")
 }
 
 android {
@@ -38,20 +37,14 @@ android {
 dependencies {
     implementation(project(":Domain"))
     implementation(project(":Common"))
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.material)
     implementation(project(":Network"))
+    implementation(project(":Persistence"))
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     implementation(libs.gpuimage)
     implementation(libs.hilt.android)
-    implementation(libs.hilt.compose)
-    implementation(libs.androidx.room.runtime)
-    implementation(libs.androidx.room.ktx)
     kapt(libs.hilt.android.compiler)
-    ksp(libs.androidx.room.compiler)
 }
 
 kapt {

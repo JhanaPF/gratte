@@ -1,11 +1,11 @@
-package com.example.data
+package com.example.persistence
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.example.data.dao.HighScoresDao
-import com.example.data.dao.ImageDao
-import com.example.data.model.HighScoresEntity
-import com.example.data.model.ImageEntity
+import com.example.persistence.model.HighScoresEntity
+import com.example.persistence.model.ImageEntity
+import com.example.persistence.dao.HighScoresDao
+import com.example.persistence.dao.ImageDao
 
 @Database(
     entities = [

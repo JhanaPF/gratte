@@ -37,20 +37,16 @@ android {
 
 dependencies {
     implementation(project(":Common"))
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.material)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    androidTestImplementation(libs.androidx.ui.test.junit4)
     implementation(libs.hilt.android)
-    implementation(libs.hilt.compose)
     kapt(libs.hilt.android.compiler)
     implementation(libs.gpuimage)
-    androidTestImplementation(libs.androidx.ui.test.junit4)
-    testImplementation(libs.junit)
-    testImplementation(platform(libs.test.junit5Bom))
 
+    testImplementation(platform(libs.test.junit5Bom))
+    testImplementation(libs.junit)
     testImplementation(libs.test.junit5JupiterApi)
     testImplementation(libs.test.junit5JupiterParams)
     testRuntimeOnly(libs.test.junit5JupiterJupiterEngine)

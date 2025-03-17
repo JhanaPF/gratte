@@ -1,8 +1,8 @@
 package com.example.data.data_source.mapper
 
-import com.example.data.model.ImageEntity
 import com.example.domain.model.ImageModel
 import com.example.network.model.image.ImageApiModel
+import com.example.persistence.model.ImageEntity
 
 // To Domain
 

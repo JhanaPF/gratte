@@ -1,10 +1,8 @@
-package com.example.data.di
+package com.example.persistence.di
 
 import android.content.Context
 import androidx.room.Room
-import com.example.data.AppDatabase
-import com.example.data.dao.HighScoresDao
-import com.example.data.dao.ImageDao
+import com.example.persistence.AppDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -26,8 +24,8 @@ internal object DatabaseModule {
     ).build()
 
     @Provides
-    fun providesImageDao(database: AppDatabase): ImageDao = database.imageDao()
+    fun providesImageDao(database: AppDatabase): com.example.persistence.dao.ImageDao = database.imageDao()
 
     @Provides
-    fun providesHighScoreDao(database: AppDatabase): HighScoresDao = database.highScoresDao()
+    fun providesHighScoreDao(database: AppDatabase): com.example.persistence.dao.HighScoresDao = database.highScoresDao()
 }

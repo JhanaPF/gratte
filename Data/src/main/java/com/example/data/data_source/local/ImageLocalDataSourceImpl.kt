@@ -1,9 +1,9 @@
 package com.example.data.data_source.local
 
-import com.example.data.dao.ImageDao
 import com.example.data.data_source.mapper.toDomain
 import com.example.data.data_source.mapper.toEntity
 import com.example.domain.model.ImageModel
+import com.example.persistence.dao.ImageDao
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject

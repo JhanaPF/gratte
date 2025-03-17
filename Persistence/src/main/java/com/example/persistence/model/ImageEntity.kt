@@ -1,4 +1,4 @@
-package com.example.data.model
+package com.example.persistence.model
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

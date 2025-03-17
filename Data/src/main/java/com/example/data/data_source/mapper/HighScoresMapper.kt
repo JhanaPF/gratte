@@ -1,8 +1,8 @@
 package com.example.data.data_source.mapper
 
-import com.example.data.model.HighScoresEntity
 import com.example.domain.model.HighScoresModel
 import com.example.network.model.high_score.HighScoresApiModel
+import com.example.persistence.model.HighScoresEntity
 
 // Api to Domain
 fun HighScoresApiModel.toDomain(): HighScoresModel? {

@@ -1,10 +1,10 @@
-package com.example.data.dao
+package com.example.persistence.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.example.data.model.HighScoresEntity
+import com.example.persistence.model.HighScoresEntity
 
 @Dao
 interface HighScoresDao {
