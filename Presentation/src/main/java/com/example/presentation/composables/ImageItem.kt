@@ -39,12 +39,12 @@ fun ImageItem(
     }
 
     Box(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = modifier.fillMaxWidth(),
     ) {
         AsyncImage(
             model = request,
             contentDescription = "Gallery Image",
-            modifier = modifier
+            modifier = Modifier
                 .fillMaxWidth()
                 .align(Alignment.Center),
             contentScale = contentScale,

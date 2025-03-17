@@ -67,7 +67,7 @@ fun ImageViewScreenContent(
     when (state) {
         is ImageViewUiState.Loading -> {}
         is ImageViewUiState.Error -> {
-            ErrorContent(message = state.message)
+            ErrorContent(throwable = state.message)
         }
 
         is ImageViewUiState.Success -> {

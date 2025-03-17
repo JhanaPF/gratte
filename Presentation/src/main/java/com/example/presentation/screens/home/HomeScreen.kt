@@ -88,7 +88,7 @@ fun HomeContent(
             }
 
             is HomeScreenUiState.Error -> {
-                ErrorContent(message = state.message)
+                ErrorContent(throwable = state.message)
             }
         }
     }
@@ -107,16 +107,13 @@ fun HighScoresList(
                 .weight(1f)
                 .fillMaxWidth(),
         ) {
-            HighScoresList(
-                modifier = Modifier
-                    .padding(bottom = 24.dp),
-                highScores = state.highScores,
-            )
+            HighScoresList(highScores = state.highScores)
         }
         Text(
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)
-                .padding(bottom = 24.dp),
+                .padding(bottom = 24.dp)
+                .weight(0.1f),
             text = stringResource(R.string.personnal_score_label),
             color = MaterialTheme.colorScheme.primary,
             fontFamily = retro,
@@ -125,13 +122,15 @@ fun HighScoresList(
         if (state.personalBest != null) {
             PersonalBestScore(
                 modifier = Modifier
-                    .padding(bottom = 24.dp),
+                    .padding(bottom = 24.dp)
+                    .weight(0.2f),
                 personalBest = state.personalBest,
             )
         } else {
             Text(
                 modifier = Modifier
-                    .align(Alignment.CenterHorizontally),
+                    .align(Alignment.CenterHorizontally)
+                    .weight(0.2f),
                 text = stringResource(R.string.no_personal_score),
                 color = Red,
                 fontFamily = retro,

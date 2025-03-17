@@ -1,5 +1,10 @@
 package com.example.presentation.composables
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.scaleIn
+import androidx.compose.animation.scaleOut
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -10,6 +15,11 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -19,25 +29,39 @@ import com.example.presentation.R
 
 @Composable
 fun ErrorContent(
-    message: Throwable,
+    throwable: Throwable,
     modifier: Modifier = Modifier,
 ) {
-    Box(
-        modifier = modifier.fillMaxSize(),
+    var visible by remember { mutableStateOf(false) }
+
+    // When this composable enters composition, trigger the animation.
+    LaunchedEffect(Unit) {
+        visible = true
+    }
+
+    AnimatedVisibility(
+        modifier = modifier,
+        visible = visible,
+        enter = fadeIn() + scaleIn(initialScale = 0.7f),
+        exit = fadeOut() + scaleOut(targetScale = 0.7f),
     ) {
-        Column(
-            Modifier.align(Alignment.Center),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(16.dp),
+        Box(
+            modifier = Modifier.fillMaxSize(),
         ) {
-            Icon(
-                imageVector = Icons.Default.Warning,
-                contentDescription = "Error",
-            )
-            Text(
-                text = message.message ?: stringResource(R.string.unknown_error),
-                color = MaterialTheme.colorScheme.error,
-            )
+            Column(
+                Modifier.align(Alignment.Center),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(16.dp),
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Warning,
+                    contentDescription = "Error",
+                )
+                Text(
+                    text = throwable.message ?: stringResource(R.string.unknown_error),
+                    color = MaterialTheme.colorScheme.error,
+                )
+            }
         }
     }
 }
@@ -46,6 +70,6 @@ fun ErrorContent(
 @Composable
 private fun ErrorViewPreview() {
     ErrorContent(
-        message = Throwable("An error occurred"),
+        throwable = Throwable("An error occurred"),
     )
 }

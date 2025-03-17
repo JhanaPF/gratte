@@ -1,5 +1,10 @@
 package com.example.presentation.screens.gallery
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.scaleIn
+import androidx.compose.animation.scaleOut
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -95,7 +100,7 @@ fun GalleryScreenContent(
 
         when (state) {
             GalleryUiState.Loading -> LoadingIndicator()
-            is GalleryUiState.Error -> ErrorContent(message = state.message)
+            is GalleryUiState.Error -> ErrorContent(throwable = state.message)
             is GalleryUiState.Success -> ImageGrid(
                 modifier = modifier,
                 state = state,
@@ -116,29 +121,43 @@ fun EmptyView(
     modifier: Modifier = Modifier,
     onAddClick: () -> Unit,
 ) {
-    Column(
-        modifier = modifier
-            .fillMaxSize()
-            .padding(horizontal = 16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center,
+    var visible by remember { mutableStateOf(false) }
+
+    // When this composable enters composition, trigger the animation.
+    LaunchedEffect(Unit) {
+        visible = true
+    }
+
+    AnimatedVisibility(
+        modifier = modifier,
+        visible = visible,
+        enter = fadeIn() + scaleIn(initialScale = 0.7f),
+        exit = fadeOut() + scaleOut(targetScale = 0.7f),
     ) {
-        Text(
-            modifier = Modifier.padding(bottom = 24.dp),
-            text = stringResource(R.string.empty_text),
-            textAlign = TextAlign.Center,
-            color = MaterialTheme.colorScheme.primary,
-            fontSize = 24.sp,
-            fontFamily = retro,
-        )
-        IconButton(
-            modifier = Modifier.size(128.dp),
-            onClick = { onAddClick() },
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(horizontal = 16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center,
         ) {
-            Image(
-                painter = painterResource(id = R.drawable.icn_add),
-                contentDescription = "Add",
+            Text(
+                modifier = Modifier.padding(bottom = 24.dp),
+                text = stringResource(R.string.empty_text),
+                textAlign = TextAlign.Center,
+                color = MaterialTheme.colorScheme.primary,
+                fontSize = 24.sp,
+                fontFamily = retro,
             )
+            IconButton(
+                modifier = Modifier.size(128.dp),
+                onClick = { onAddClick() },
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.icn_add),
+                    contentDescription = "Add",
+                )
+            }
         }
     }
 }
