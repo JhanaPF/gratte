@@ -8,7 +8,7 @@ The UI is entirely built with Jetpack Compose, following essential Compose lint 
 
 Key technologies integrated into the project include:
 
-- **Room** for locale storgae.
+- **Room** for locale storage.
 - **Compose** navigation
 - **Retrofit** for seamless networking.
 - **Hilt** for robust dependency injection.
@@ -23,7 +23,11 @@ Only the Domain is tested (100% coverage) because it:
 - Keeps tests quick and maintainable.
 - Reduces dependency on external frameworks and minimizes UI-related disruptions.
 
-> **Note:** The project intentionally includes varied approaches to state handling within ViewModels and error handling to illustrate multiple practices that i like.
+> **Note:** The project intentionally includes varied approaches to state handling within ViewModels and error handling to illustrate multiple practices that i like. Also it have been conceived for DARKMODE 
+
+## Preview
+
+![Demo GIF](app/src/main/assets/Pixelise_it.gif)
 
 ## Project Structure
 
