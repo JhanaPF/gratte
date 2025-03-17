@@ -195,18 +195,6 @@ fun ProfileList(
 }
 
 @Composable
-fun ImageVoteItem(
-    item: PagerItem,
-    modifier: Modifier = Modifier,
-) {
-    ImageItem(
-        imageUrl = item.pictureUrl,
-        contentScale = ContentScale.FillHeight,
-        modifier = modifier,
-    )
-}
-
-@Composable
 private fun VoteButtons(
     onVotePositive: () -> Unit,
     onVoteNegative: () -> Unit,

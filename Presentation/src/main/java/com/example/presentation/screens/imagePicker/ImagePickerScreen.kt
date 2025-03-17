@@ -123,6 +123,7 @@ fun PixelatedImagePicker(
     LaunchedEffect(Unit) {
         borderColor = randomFlashyColor()
     }
+
     val imagePickerLauncher =
         rememberLauncherForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
             uri?.let {

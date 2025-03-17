@@ -49,7 +49,9 @@ class ImageVoteScreenViewModel @Inject constructor(
         ) { profiles, endOfProfiles, throwable ->
             when {
                 throwable != null -> ImageVoteScreenUiState.Error(throwable)
+
                 endOfProfiles || profiles.isEmpty() -> ImageVoteScreenUiState.EndOfProfiles
+
                 else -> ImageVoteScreenUiState.Success(
                     pagerItems = profiles.map {
                         PagerItem(
@@ -59,7 +61,7 @@ class ImageVoteScreenViewModel @Inject constructor(
                         )
                     }.toPersistentList(),
                     onLastProfile = ::onLastProfile, // explained in the UIState
-                    onVotePositive = ::votePositive,
+                    onVotePositive = ::votePositive, // its another way of handling click than passing trough lambda
                     onVoteNegative = ::voteNegative,
                 )
             }

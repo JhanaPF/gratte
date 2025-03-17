@@ -34,6 +34,7 @@ class GalleryViewModel @Inject constructor(
                         val pictureList = images.mapNotNull { imageModel ->
                             mapImageModelToPictureItem(imageModel)
                         }.toPersistentList()
+
                         if (pictureList.isEmpty()) {
                             GalleryUiState.Empty
                         } else {

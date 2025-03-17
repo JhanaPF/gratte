@@ -63,7 +63,7 @@ fun HomeContent(
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)
                 .padding(bottom = 46.dp),
-            text = stringResource(id = R.string.app_name),
+            text = stringResource(id = R.string.home_title),
             color = MaterialTheme.colorScheme.primary,
             fontFamily = retro,
             fontSize = 24.sp,
@@ -102,17 +102,16 @@ fun HighScoresList(
     Column(
         modifier = modifier,
     ) {
-        Box(
+        HighScoresList(
             modifier = Modifier
                 .weight(1f)
-                .fillMaxWidth(),
-        ) {
-            HighScoresList(highScores = state.highScores)
-        }
+                .fillMaxWidth()
+                .padding(bottom = 24.dp),
+            highScores = state.highScores,
+        )
         Text(
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)
-                .padding(bottom = 24.dp)
                 .weight(0.1f),
             text = stringResource(R.string.personnal_score_label),
             color = MaterialTheme.colorScheme.primary,

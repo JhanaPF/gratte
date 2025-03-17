@@ -68,6 +68,7 @@ class ImagePickerViewModel @Inject constructor(
         state.value.image?.let { image ->
             viewModelScope.launch {
                 isLoadingFlow.value = true
+
                 sendUserPictureUseCase(image)
                     .onSuccess {
                         originalImageFlow.value = null
@@ -79,6 +80,7 @@ class ImagePickerViewModel @Inject constructor(
                         _events.send(ImagePickerEvents.ShowErrorSnackBar("Error sending image"))
                         // i could have a string resolver provider but i think its overkill just for this
                     }
+
                 isLoadingFlow.value = false
             }
         }

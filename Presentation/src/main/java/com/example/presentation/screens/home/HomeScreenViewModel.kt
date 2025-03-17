@@ -74,7 +74,7 @@ class HomeScreenViewModel @Inject constructor(
     private fun ImageModel?.toHighScoresItem(): HighScoresItem? =
         this?.let {
             HighScoresItem(
-                rank = "11TH", // With a normal backend i would just fetch it but i wanted to show an observe / combining example
+                rank = "11TH", // With a normal backend i would just fetch it but i wanted to show an observe / combining example from existing pictures
                 name = it.userId ?: return null,
                 pictureUrl = null,
                 score = it.score ?: return null,
