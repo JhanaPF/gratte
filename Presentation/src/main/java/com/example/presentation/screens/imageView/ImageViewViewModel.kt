@@ -36,21 +36,23 @@ class ImageViewViewModel @Inject constructor(
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
-            val imageResult = getImageByIdUseCase(imageId).fold(
-                onSuccess = { imageModel ->
-                    if (imageModel?.image == null) {
-                        Result.failure(IllegalStateException("Image not found"))
-                    } else {
-                        convertBase64ToByteArrayUseCase(imageModel.image)
-                    }
+            val result = runCatching {
+                val imageModel = getImageByIdUseCase(imageId).getOrThrow()
+                val score = imageModel?.score ?: 0
+                val base64Image = imageModel?.image ?: throw IllegalStateException("Image not found")
+
+                val decodedImage = convertBase64ToByteArrayUseCase(base64Image).getOrThrow()
+
+                decodedImage to score
+            }
+
+            _state.value = result.fold(
+                onSuccess = { (decodedImage, score) ->
+                    ImageViewUiState.Success(image = decodedImage, score = score)
                 },
                 onFailure = { error ->
-                    Result.failure(error)
+                    ImageViewUiState.Error(error)
                 },
-            )
-            _state.value = imageResult.fold(
-                onSuccess = { ImageViewUiState.Success(it) },
-                onFailure = { ImageViewUiState.Error(it) },
             )
         }
     }

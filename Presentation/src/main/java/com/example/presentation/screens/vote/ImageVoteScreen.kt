@@ -140,8 +140,10 @@ fun ProfileList(
             ) { page ->
                 val pageModifier = pagerModifier(pagerState.getOffsetDistanceInPages(page))
 
-                ImageVoteItem(
-                    item = state.pagerItems[page],
+                ImageItem(
+                    imageUrl = state.pagerItems[page].pictureUrl,
+                    contentScale = ContentScale.FillHeight,
+                    score = state.pagerItems[pagerState.currentPage].score,
                     modifier = pageModifier,
                 )
             }
@@ -150,15 +152,6 @@ fun ProfileList(
                 modifier = Modifier
                     .align(Alignment.TopCenter)
                     .padding(top = 16.dp),
-                color = MaterialTheme.colorScheme.primary,
-                fontFamily = retro,
-                fontSize = 24.sp,
-            )
-            Text(
-                text = state.pagerItems[pagerState.currentPage].score.toString(),
-                modifier = Modifier
-                    .align(Alignment.BottomStart)
-                    .padding(bottom = 16.dp, start = 16.dp),
                 color = MaterialTheme.colorScheme.primary,
                 fontFamily = retro,
                 fontSize = 24.sp,

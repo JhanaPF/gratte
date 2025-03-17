@@ -23,6 +23,8 @@
     <string name="empty_text">Start by adding a picture !</string>
     <string name="delete_all_images_title">Delete all pictures ?</string>
     <string name="delete_all_images_text">You won\'t get a second chance</string>
+    <string name="dialog_confirm">Confirm</string>
+    <string name="dialog_dismiss">Dismiss</string>
 
     //Vote
     <string name="vote_title">Vote for It!</string>

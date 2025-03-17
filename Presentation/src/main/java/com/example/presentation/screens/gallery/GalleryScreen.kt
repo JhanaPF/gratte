@@ -172,6 +172,7 @@ fun ImageGrid(
                     modifier = Modifier
                         .clickable { onImageClick(picture.id) },
                     contentScale = ContentScale.FillHeight,
+                    score = picture.score,
                     base64Image = picture.imageArray,
                 )
             }
@@ -201,7 +202,7 @@ fun DeleteConfirmDialog(
 ) {
     AlertDialog(
         icon = {
-            Icon(icon, contentDescription = "Example Icon")
+            Icon(icon, contentDescription = "Alert Icon")
         },
         title = {
             Text(text = dialogTitle)
@@ -221,7 +222,7 @@ fun DeleteConfirmDialog(
                     onDismissRequest()
                 },
             ) {
-                Text("Confirm")
+                Text(stringResource(R.string.dialog_confirm))
             }
         },
         dismissButton = {
@@ -230,7 +231,7 @@ fun DeleteConfirmDialog(
                     onDismissRequest()
                 },
             ) {
-                Text("Dismiss")
+                Text(stringResource(R.string.dialog_dismiss))
             }
         },
     )

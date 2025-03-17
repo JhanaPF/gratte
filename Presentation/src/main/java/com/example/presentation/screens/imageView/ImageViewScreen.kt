@@ -48,7 +48,7 @@ fun ImageViewScreen(
             }
     }
 
-    GalleryScreenContent(
+    ImageViewScreenContent(
         state = state,
         onImageClicked = { navigateBack() },
         onCloseClick = { navigateBack() },
@@ -57,7 +57,7 @@ fun ImageViewScreen(
 }
 
 @Composable
-fun GalleryScreenContent(
+fun ImageViewScreenContent(
     state: ImageViewUiState,
     onImageClicked: () -> Unit,
     onCloseClick: () -> Unit,
@@ -73,7 +73,7 @@ fun GalleryScreenContent(
         is ImageViewUiState.Success -> {
             ImageView(
                 modifier = modifier,
-                image = state.image,
+                image = state,
                 onImageClicked = onImageClicked,
                 onCloseClick = onCloseClick,
                 onDeleteClicked = onDeleteClicked,
@@ -82,12 +82,9 @@ fun GalleryScreenContent(
     }
 }
 
-// If you wonder why i didn't reused the RetroBitmapWithLoader and make it evolve,
-// it's because the GPUI filters return a bitmap by default..
-// so to avoid a lot of other conversions i just created a new composable
 @Composable
 fun ImageView(
-    image: ByteArray,
+    image: ImageViewUiState.Success,
     onImageClicked: () -> Unit,
     onCloseClick: () -> Unit,
     onDeleteClicked: () -> Unit,
@@ -110,7 +107,8 @@ fun ImageView(
                 modifier = Modifier
                     .clickable { onImageClicked() },
                 contentScale = ContentScale.Fit,
-                base64Image = image,
+                base64Image = image.image,
+                score = image.score,
             )
             IconButton(
                 modifier = Modifier
@@ -141,13 +139,11 @@ fun ImageView(
 @Preview(showBackground = true, widthDp = 360, heightDp = 640)
 @Composable
 private fun ImageViewScreenSuccessPreview() {
-    // For preview, we supply a dummy byte array.
-    // In a real scenario, you might load an actual image or use a placeholder.
-    val dummyImage = ByteArray(0) // This may trigger your placeholder in ImageItem.
-    val dummyState = ImageViewUiState.Success(image = dummyImage)
+    val dummyImage = ByteArray(0)
+    val dummyState = ImageViewUiState.Success(image = dummyImage, score = 3200)
 
     PixeliseItTheme {
-        GalleryScreenContent(
+        ImageViewScreenContent(
             state = dummyState,
             onImageClicked = {},
             onCloseClick = {},
@@ -161,7 +157,7 @@ private fun ImageViewScreenSuccessPreview() {
 private fun ImageViewScreenErrorPreview() {
     val dummyState = ImageViewUiState.Error(message = Throwable("An error occurred"))
     PixeliseItTheme {
-        GalleryScreenContent(
+        ImageViewScreenContent(
             state = dummyState,
             onImageClicked = {},
             onCloseClick = {},
