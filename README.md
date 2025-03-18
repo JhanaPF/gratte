@@ -1,4 +1,4 @@
-# PixeliseIt Kotlin Clean Architecture
+# Pix Kotlin Clean Architecture
 
 ## Overview
 
