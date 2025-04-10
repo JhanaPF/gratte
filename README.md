@@ -1,4 +1,4 @@
-# PixeliseIt Kotlin Clean Architecture
+# Pix Kotlin Clean Architecture
 
 ## Overview
 
@@ -23,7 +23,8 @@ Only the Domain is tested (100% coverage) because it:
 - Keeps tests quick and maintainable.
 - Reduces dependency on external frameworks and minimizes UI-related disruptions.
 
-> **Note:** The project intentionally includes varied approaches to state handling within ViewModels and error handling to illustrate multiple practices that i like. Also it have been conceived for DARKMODE 
+> **Note:** The project intentionally includes varied approaches to state handling within ViewModels and error handling to illustrate multiple practices that i like. Also it have been conceived for DARKMODE.<br /><br />
+> Also i lost some performances encoding and decoding into Bitmap instead of passing Bitmap in the domain to apply the filter before converting it one time but i didn't wanted to break the android agnostic Domain Layer...
 
 ## Preview
 
@@ -80,4 +81,3 @@ Only the Domain is tested (100% coverage) because it:
 ### Installation
 
 If you're not a developer, simply install the `.apk` file available in the "Releases" section on the right.
-

@@ -1,6 +1,6 @@
 <resources>
     // Home Screen
-    <string name="home_title">Pixelise It!</string>
+    <string name="home_title">Pix!</string>
     <string name="home_subtitle">HIGH SCORES</string>
     <string name="first_row">RANK</string>
     <string name="second_row">SCORE</string>
@@ -9,7 +9,7 @@
     <string name="no_personal_score">Add a picture first !</string>
 
     // Image Picker
-    <string name="picker_title">Pixelate It!</string>
+    <string name="picker_title">Pixelise It!</string>
     <string name="select_button_label">Browse It</string>
     <string name="slider_label">Pixel Size: %1$s</string>
     <string name="row_label">Crt Effect</string>
