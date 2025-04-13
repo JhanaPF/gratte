@@ -2,16 +2,9 @@ package com.example.pixeliseit.presentation.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
-import com.example.pixeliseit.R
-
-val retro = FontFamily(
-    Font(resId = R.font.retro_regular, FontWeight.Medium, FontStyle.Normal),
-)
 
 // Set of Material typography styles to start with
 val Typography = Typography(

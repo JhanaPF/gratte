@@ -18,6 +18,7 @@ import com.example.presentation.screens.imagePicker.navigation.ImagePicker
 import com.example.presentation.screens.imageView.ImageViewScreen
 import com.example.presentation.screens.imageView.navigation.ImageView
 import com.example.presentation.screens.vote.ImageVoteScreen
+import com.example.presentation.screens.metronome.MetronomeScreen
 
 @Composable
 fun AppNavHost(
@@ -64,6 +65,9 @@ fun AppNavHost(
             ImageViewScreen(
                 navigateBack = { navController.navigateUp() },
             )
+        }
+        composable<AppRoute.Metronome> { _ ->
+            MetronomeScreen()
         }
     }
 }

@@ -14,4 +14,7 @@ interface AppRoute {
 
     @Serializable
     object Gallery : AppRoute
+
+    @Serializable
+    object Metronome : AppRoute
 }

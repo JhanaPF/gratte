@@ -27,11 +27,12 @@ import com.example.presentation.composables.LoadingIndicator
 import com.example.presentation.composables.ScoreRow
 import com.example.presentation.theme.PixeliseItTheme
 import com.example.presentation.theme.Red
-import com.example.presentation.theme.retro
+import com.example.presentation.theme.flamenco
 import com.example.presentation.utils.colorForRank
 import com.example.presentation.utils.randomFlashyColor
 import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.persistentListOf
+import androidx.compose.ui.text.font.FontWeight
 
 @Composable
 fun HomeScreen(
@@ -65,8 +66,9 @@ fun HomeContent(
                 .padding(bottom = 46.dp),
             text = stringResource(id = R.string.home_title),
             color = MaterialTheme.colorScheme.primary,
-            fontFamily = retro,
-            fontSize = 24.sp,
+            fontFamily = flamenco,
+            fontSize = 32.sp,
+            fontWeight = FontWeight.Bold
         )
         Text(
             modifier = Modifier
@@ -74,7 +76,7 @@ fun HomeContent(
                 .padding(bottom = 46.dp),
             text = stringResource(id = R.string.home_subtitle),
             color = MaterialTheme.colorScheme.primary,
-            fontFamily = retro,
+            fontFamily = flamenco,
             fontSize = 24.sp,
         )
 
@@ -115,8 +117,8 @@ fun HighScoresList(
                 .weight(0.1f),
             text = stringResource(R.string.personnal_score_label),
             color = MaterialTheme.colorScheme.primary,
-            fontFamily = retro,
-            fontSize = 24.sp,
+            fontFamily = flamenco,
+            fontSize = 36.sp,
         )
         if (state.personalBest != null) {
             PersonalBestScore(
@@ -132,7 +134,7 @@ fun HighScoresList(
                     .weight(0.2f),
                 text = stringResource(R.string.no_personal_score),
                 color = Red,
-                fontFamily = retro,
+                fontFamily = flamenco,
                 fontSize = 14.sp,
             )
         }

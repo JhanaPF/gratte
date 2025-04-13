@@ -65,6 +65,7 @@ dependencies {
     implementation(libs.hilt.android)
     implementation(libs.hilt.compose)
     kapt(libs.hilt.android.compiler)
+    implementation("androidx.compose.ui:ui-text-google-fonts:1.7.8")
 }
 
 kapt {

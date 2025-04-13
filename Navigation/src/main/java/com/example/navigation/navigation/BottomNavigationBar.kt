@@ -50,6 +50,11 @@ fun BottomNavigationBar(
             icon = Icons.Default.AccountCircle,
             route = AppRoute.Gallery,
         ),
+        NavigationItem(
+            title = stringResource(R.string.appbar_gallery),
+            icon = Icons.Default.AccountCircle,
+            route = AppRoute.Metronome,
+        ),
     )
 
     NavigationBar(
@@ -80,7 +85,7 @@ fun BottomNavigationBar(
                 },
                 colors = NavigationBarItemDefaults.colors(
                     selectedIconColor = MaterialTheme.colorScheme.surface,
-                    indicatorColor = Color.Green,
+                    indicatorColor = Color.Red,
                 ),
 
             )
