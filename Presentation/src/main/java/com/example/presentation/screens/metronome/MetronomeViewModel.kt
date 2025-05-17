@@ -8,6 +8,9 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.asSharedFlow
+
 
 class MetronomeViewModel : ViewModel() {
 
@@ -24,13 +27,17 @@ class MetronomeViewModel : ViewModel() {
         }
     }
 
+    private val _tickEvent = MutableSharedFlow<Unit>()
+    val tickEvent = _tickEvent.asSharedFlow()
+
     private fun startMetronome() {
         if (_uiState.value.isRunning) return
         _uiState.value = _uiState.value.copy(isRunning = true)
         metronomeJob = viewModelScope.launch {
             while (_uiState.value.isRunning) {
                 // 🔊 Simule un "tick"
-                println("Tick!")
+                //println("Tick!")
+                _tickEvent.emit(Unit)
                 delay((60000 / _uiState.value.bpm).toLong())
             }
         }

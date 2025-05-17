@@ -66,6 +66,8 @@ dependencies {
     implementation(libs.hilt.compose)
     kapt(libs.hilt.android.compiler)
     implementation("androidx.compose.ui:ui-text-google-fonts:1.7.8")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
 }
 
 kapt {
