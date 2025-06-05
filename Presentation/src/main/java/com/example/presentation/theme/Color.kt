@@ -10,7 +10,7 @@ val Gray = Color.Gray
 
 val Pink80 = Color(0xFFEFB8C8)
 val NeonPink = Color(0xFFFF00FF)
-val Red = Color(0xFFFF0000)
+val Red = Color(0xFFB00A15)
 val Green = Color(0xFF00FF00)
 val Yellow = Color(0xFFFFFF00)
 val Tealish = Color(0xFF83D7A9)

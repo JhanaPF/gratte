@@ -23,7 +23,7 @@ import com.example.presentation.screens.metronome.MetronomeScreen
 @Composable
 fun AppNavHost(
     modifier: Modifier = Modifier,
-    startDestination: AppRoute = AppRoute.Home,
+    startDestination: AppRoute = AppRoute.Metronome,
     navController: NavHostController = rememberNavController(),
 ) {
     NavHost(

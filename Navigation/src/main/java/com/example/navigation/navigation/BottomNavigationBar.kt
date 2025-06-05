@@ -2,9 +2,10 @@ package com.example.navigation.navigation
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.PlayArrow
+//import androidx.compose.material.icons.filled.Add
+//import androidx.compose.material.icons.filled.Favorite
+//import androidx.compose.material.icons.filled.Home
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
@@ -30,29 +31,29 @@ fun BottomNavigationBar(
     var selectedItem by rememberSaveable { mutableIntStateOf(0) }
 
     val navigationItems = listOf(
-        NavigationItem(
-            title = stringResource(R.string.appbar_home),
-            icon = Icons.Default.Home,
-            route = AppRoute.Home,
-        ),
-        NavigationItem(
-            title = stringResource(R.string.appbar_add),
-            icon = Icons.Default.Add,
-            route = AppRoute.ImagePicker,
-        ),
-        NavigationItem(
-            title = stringResource(R.string.appbar_vote),
-            icon = Icons.Default.Favorite,
-            route = AppRoute.ImageVote,
-        ),
+        //NavigationItem(
+        //    title = stringResource(R.string.appbar_gallery),
+        //      icon = Icons.Default.AccountCircle,
+        //    route = AppRoute.Gallery,
+        //),
+        //NavigationItem(
+        //    title = stringResource(R.string.appbar_add),
+        //    icon = Icons.Default.Add,
+        //    route = AppRoute.ImagePicker,
+        //),
+        //NavigationItem(
+        //    title = stringResource(R.string.appbar_home),
+        //    icon = Icons.Default.Home,
+        //    route = AppRoute.Home,
+        //),
+        //NavigationItem(
+        //    title = stringResource(R.string.appbar_vote),
+        //    icon = Icons.Default.Favorite,
+        //    route = AppRoute.ImageVote,
+        //),
         NavigationItem(
             title = stringResource(R.string.appbar_gallery),
-            icon = Icons.Default.AccountCircle,
-            route = AppRoute.Gallery,
-        ),
-        NavigationItem(
-            title = stringResource(R.string.appbar_gallery),
-            icon = Icons.Default.AccountCircle,
+            icon = Icons.Default.PlayArrow,
             route = AppRoute.Metronome,
         ),
     )

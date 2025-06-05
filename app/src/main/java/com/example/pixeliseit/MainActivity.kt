@@ -26,11 +26,11 @@ class MainActivity : ComponentActivity() {
                 Scaffold(
                     modifier = Modifier
                         .fillMaxSize(),
-                    bottomBar = {
-                        BottomNavigationBar(
-                            navController,
-                        )
-                    },
+                    //bottomBar = {
+                    //    BottomNavigationBar(
+                    //        navController,
+                    //    )
+                    //},
                 ) { innerPadding ->
                     AppNavHost(
                         modifier = Modifier.padding(innerPadding),
