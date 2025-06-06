@@ -2,15 +2,12 @@ package com.example.presentation.screens.metronome
 
 import androidx.compose.runtime.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.material3.Slider
 import androidx.compose.material3.Text
 import androidx.compose.material3.Button
 
 
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-//import androidx.lifecycle.viewmodel.compose.viewModel
-//import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.presentation.screens.metronome.MetronomeEvent
 import com.example.presentation.screens.metronome.MetronomeViewModel
@@ -19,13 +16,8 @@ import com.example.presentation.screens.metronome.MetronomeViewModel
 import kotlinx.coroutines.flow.collect
 import androidx.compose.ui.platform.LocalContext
 import android.media.MediaPlayer
-import android.os.Bundle
-import android.util.Log
 
-import androidx.compose.foundation.layout.*
-import androidx.compose.material3.Button
-import androidx.compose.material3.Text
-import androidx.compose.runtime.*
+
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -37,6 +29,9 @@ import androidx.compose.ui.unit.sp
 import com.example.presentation.R
 import com.example.presentation.theme.flamenco
 
+import android.media.SoundPool
+import android.media.AudioAttributes
+
 
 @Composable
 fun MetronomeScreen(
@@ -46,30 +41,46 @@ fun MetronomeScreen(
     val state by viewModel.uiState.collectAsState()
     val context = LocalContext.current
 
+    val audioAttributes = AudioAttributes.Builder()
+        .setUsage(AudioAttributes.USAGE_GAME)
+        .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+        .build()
 
-    // ⚡ Collect tick events
+    val soundPool = remember {
+        SoundPool.Builder()
+            .setMaxStreams(10)
+            .setAudioAttributes(audioAttributes)
+            .build()
+    }
+
+    var soundId by remember { mutableStateOf(0) }
+    var soundReady by remember { mutableStateOf(false) }
+
+    val resId = context.resources.getIdentifier("metronome", "raw", context.packageName)
+    if (resId != 0) {
+        soundId = soundPool.load(context, resId, 1)
+
+        soundPool.setOnLoadCompleteListener { _, sampleId, status ->
+            if (status == 0 && sampleId == soundId) {
+                soundReady = true
+            }
+        }
+    }
+
     LaunchedEffect(Unit) {
         viewModel.tickEvent.collect {
-            println("Tick!")
 
-            //MediaPlayer.create(context, R.raw.metronome_sound).start()
-
-            val resId = context.resources.getIdentifier("metronome", "raw", context.packageName)
-
-
-            if (resId != 0) {
-                try {
-                    val mediaPlayer = MediaPlayer.create(context, resId)
-                    mediaPlayer?.setOnCompletionListener {
-                        it.release()
-                    }
-                    mediaPlayer?.start()
-                } catch (e: Exception) {
-                    Log.e("AUDIO", "Erreur lecture MediaPlayer: ${e.message}")
-                }
-            } else {
-                Log.e("AUDIO", "Fichier introuvable")
+            if (soundReady && state.isRunning) {
+                soundPool.play(soundId, 1f, 1f, 1, 0, 1f)
+                //println("Tick!")
             }
+
+        }
+    }
+
+    DisposableEffect(Unit) {
+        onDispose {
+            soundPool.release()
         }
     }
 
@@ -97,10 +108,8 @@ fun MetronomeScreen(
                     text = "-5",
                     modifier = Modifier.weight(1f),
                     textAlign = TextAlign.Center,
-                    //color = MaterialTheme.colorScheme.primary,
                     fontFamily = flamenco,
-                    //fontSize = 32.sp,
-                    //fontWeight = FontWeight.Bold
+                    fontSize = 28.sp,
                 )
             }
 
@@ -110,7 +119,7 @@ fun MetronomeScreen(
                 textAlign = TextAlign.Center,
                 color = MaterialTheme.colorScheme.primary,
                 fontFamily = flamenco,
-                fontSize = 32.sp,
+                fontSize = 30.sp,
                 fontWeight = FontWeight.Bold
             )
 
@@ -128,10 +137,8 @@ fun MetronomeScreen(
                     text = "+5",
                     modifier = Modifier.weight(1f),
                     textAlign = TextAlign.Center,
-                    //color = MaterialTheme.colorScheme.primary,
                     fontFamily = flamenco,
-                    //fontSize = 32.sp,
-                    //fontWeight = FontWeight.Bold
+                    fontSize = 28.sp,
                 )
             }
         }
@@ -159,10 +166,8 @@ fun MetronomeScreen(
                     text = if (state.isRunning) "Stop" else "Start",
                     modifier = Modifier.weight(1f),
                     textAlign = TextAlign.Center,
-                    //color = MaterialTheme.colorScheme.primary,
                     fontFamily = flamenco,
                     fontSize = 32.sp,
-                    fontWeight = FontWeight.Bold
                 )
             }
         }
